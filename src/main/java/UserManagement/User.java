@@ -9,6 +9,7 @@ import java.util.Date;
  * and has basic functionality for user management,
  * like registering, updating a User
  * @authors Viktor Benini, StudentID: 1298976 and Amalie Wilke; StudentID: 1304925
+ * Model for doctor class
  */
 
 public class User {
