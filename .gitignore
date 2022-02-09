@@ -1,0 +1,7 @@
+# Project exclude paths
+<<<<<<< HEAD
+/target/.DS_Store/
+.DS_Store
+=======
+/target/.DS_Store
+>>>>>>> addc3318e99153c4fb5ea8355523de03e1ffa433

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #83A1CD;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gui.ehealt_v2.UserProfileEditController">
+   <children>
+      <Button fx:id="save_button" layoutX="219.0" layoutY="347.0" mnemonicParsing="false" onAction="#UserEdit" style="-fx-background-color: #4b5e62;" text="Save my changes" textFill="WHITE">
+         <font>
+            <Font name="Microsoft Sans Serif" size="18.0" />
+         </font></Button>
+      <TextField fx:id="firstname_input" layoutX="126.0" layoutY="46.0" prefHeight="33.0" prefWidth="127.0" promptText="First Name">
+         <font>
+            <Font name="Microsoft Sans Serif" size="15.0" />
+         </font></TextField>
+      <TextField fx:id="lastname_input" layoutX="263.0" layoutY="46.0" prefHeight="33.0" prefWidth="127.0" promptText="Last Name">
+         <font>
+            <Font name="Microsoft Sans Serif" size="15.0" />
+         </font></TextField>
+      <TextField fx:id="street_input" layoutX="127.0" layoutY="94.0" prefHeight="33.0" prefWidth="127.0" promptText="Street">
+         <font>
+            <Font size="15.0" />
+         </font></TextField>
+      <TextField fx:id="number_input" layoutX="268.0" layoutY="94.0" prefHeight="33.0" prefWidth="42.0" promptText="No.">
+         <font>
+            <Font name="Microsoft Sans Serif" size="15.0" />
+         </font></TextField>
+      <TextField fx:id="zip_input" layoutX="126.0" layoutY="138.0" prefHeight="33.0" prefWidth="73.0" promptText="ZIP">
+         <font>
+            <Font size="15.0" />
+         </font></TextField>
+      <TextField fx:id="town_input" layoutX="215.0" layoutY="138.0" prefHeight="33.0" prefWidth="90.0" promptText="Town">
+         <font>
+            <Font name="Microsoft Sans Serif" size="15.0" />
+         </font></TextField>
+      <TextField fx:id="email_input" layoutX="126.0" layoutY="187.0" prefHeight="33.0" prefWidth="65.0" promptText="Email">
+         <font>
+            <Font name="Microsoft Sans Serif" size="15.0" />
+         </font></TextField>
+      <TextField fx:id="password_input" layoutX="126.0" layoutY="262.0" prefHeight="33.0" prefWidth="107.0" promptText="Password">
+         <font>
+            <Font name="Microsoft Sans Serif" size="15.0" />
+         </font></TextField>
+      <DatePicker layoutX="125.0" layoutY="227.0" prefHeight="25.0" prefWidth="90.0" promptText="Birthday" />
+      <TextField fx:id="insurancename_input" layoutX="125.0" layoutY="310.0" prefHeight="32.0" prefWidth="127.0" promptText="Insurance Name">
+         <font>
+            <Font name="Microsoft Sans Serif" size="15.0" />
+         </font></TextField>
+      <TextField fx:id="password_confirmation" layoutX="254.0" layoutY="262.0" prefHeight="33.0" prefWidth="141.0" promptText="Confirm Password">
+         <font>
+            <Font name="Microsoft Sans Serif" size="15.0" />
+         </font></TextField>
+      <FontAwesomeIconView glyphName="USER" layoutX="81.0" layoutY="69.0" size="20" wrappingWidth="25.23808479309082" />
+      <FontAwesomeIconView glyphName="HOME" layoutX="80.0" layoutY="119.0" selectionEnd="0" size="25" wrappingWidth="27.90477180480957" />
+      <FontAwesomeIconView glyphName="AT" layoutX="85.0" layoutY="210.0" size="20" />
+      <Button fx:id="save_button1" layoutX="478.0" layoutY="20.0" mnemonicParsing="false" onAction="#UserEdit" style="-fx-background-color: #4b5e62;" text="Main Page" textFill="WHITE">
+         <font>
+            <Font name="Microsoft Sans Serif" size="14.0" />
+         </font>
+      </Button>
+      <FontAwesomeIconView glyphName="KEY" layoutX="84.0" layoutY="285.0" size="20" />
+      <FontAwesomeIconView glyphName="PENCIL" layoutX="88.0" layoutY="330.0" size="20" tabSize="20" />
+   </children>
+</AnchorPane>

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="526.0" prefWidth="858.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gui.ehealt_v2.AdminViewController">
+   <children>
+      <TableView fx:id="user_table" layoutY="51.0" prefHeight="264.0" prefWidth="600.0" AnchorPane.bottomAnchor="85.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="51.0">
+        <columns>
+          <TableColumn fx:id="id_col" prefWidth="47.0" text="ID" />
+          <TableColumn fx:id="firstname_col" prefWidth="98.0" text="First Name" />
+            <TableColumn fx:id="lastname_col" prefWidth="88.0" text="Last Name" />
+            <TableColumn fx:id="street_col" prefWidth="53.0" text="Street" />
+            <TableColumn fx:id="no_col" minWidth="0.0" prefWidth="0.0" text="No." />
+            <TableColumn fx:id="zip_col" prefWidth="52.0" text="ZIP" />
+            <TableColumn fx:id="town_col" prefWidth="78.0" text="Town" />
+            <TableColumn fx:id="email_col" prefWidth="86.0" text="Email" />
+            <TableColumn fx:id="birthday_col" minWidth="5.0" prefWidth="66.0" text="Birth" />
+            <TableColumn fx:id="insurancename_col" prefWidth="79.0" text="Insurance" />
+            <TableColumn fx:id="insurancetype_col" minWidth="0.0" prefWidth="42.0" text="Type" />
+            <TableColumn fx:id="insurancetype_col1" minWidth="0.0" prefWidth="68.0" text="Created" />
+            <TableColumn fx:id="insurancetype_col2" minWidth="0.0" prefWidth="74.0" text="Gender" />
+        </columns>
+      </TableView>
+      <Button fx:id="edituser_button" layoutX="762.0" layoutY="487.0" mnemonicParsing="false" onAction="#editUser" prefHeight="25.0" prefWidth="71.0" text="Edit User" />
+      <TextField fx:id="firstname_input" layoutX="14.0" layoutY="455.0" prefHeight="25.0" prefWidth="71.0" promptText="First Name" />
+      <TextField fx:id="town_input" layoutX="323.0" layoutY="455.0" prefHeight="25.0" prefWidth="48.0" promptText="Town" />
+      <TextField fx:id="zip_input" layoutX="281.0" layoutY="455.0" prefHeight="25.0" prefWidth="36.0" promptText="ZIP" />
+      <TextField fx:id="lastname_input" layoutX="92.0" layoutY="455.0" prefHeight="0.0" prefWidth="71.0" promptText="Last Name" />
+      <TextField fx:id="street_input" layoutX="170.0" layoutY="455.0" prefHeight="25.0" prefWidth="62.0" promptText="Street" />
+      <TextField fx:id="number_input" layoutX="238.0" layoutY="455.0" prefHeight="25.0" prefWidth="36.0" promptText="No." />
+      <TextField fx:id="email_input" layoutX="379.0" layoutY="455.0" prefHeight="25.0" prefWidth="55.0" promptText="Email" />
+      <TextField fx:id="insurancename_input" layoutX="593.0" layoutY="455.0" prefHeight="25.0" prefWidth="90.0" promptText="Insurance Name" />
+      <Button fx:id="adduser_button" layoutX="765.0" layoutY="455.0" mnemonicParsing="false" onAction="#addNewUser" prefHeight="25.0" prefWidth="71.0" text="Add User" />
+      <TextField fx:id="password_input" layoutX="442.0" layoutY="455.0" prefHeight="25.0" prefWidth="65.0" promptText="Password" />
+      <Button fx:id="deleteuser_button" layoutX="707.0" layoutY="14.0" mnemonicParsing="false" onAction="#deleteUser" text="Delete" />
+      <Button fx:id="displayusers_button" layoutX="31.0" layoutY="14.0" mnemonicParsing="false" onAction="#DisplayUsers" prefHeight="25.0" prefWidth="103.0" text="Display Users" />
+      <Button fx:id="logout_button" layoutX="785.0" layoutY="14.0" mnemonicParsing="false" onAction="#AdminLogout" text="Logout" />
+      <DatePicker layoutX="518.0" layoutY="455.0" prefHeight="16.0" prefWidth="65.0" promptText="Birthday" />
+      <TextField fx:id="userid_input" layoutX="14.0" layoutY="487.0" prefHeight="25.0" prefWidth="71.0" promptText="Enter UserID" />
+      <TextField fx:id="firstname_edit" layoutX="92.0" layoutY="487.0" prefHeight="25.0" prefWidth="71.0" promptText="First Name" />
+      <TextField fx:id="lastname_edit" layoutX="170.0" layoutY="487.0" prefHeight="25.0" prefWidth="71.0" promptText="First Name" />
+      <TextField fx:id="number_edit" layoutX="309.0" layoutY="486.0" prefHeight="25.0" prefWidth="36.0" promptText="No." />
+      <TextField fx:id="zip_edit" layoutX="350.0" layoutY="486.0" prefHeight="25.0" prefWidth="36.0" promptText="ZIP" />
+      <TextField fx:id="town_edit" layoutX="387.0" layoutY="486.0" prefHeight="25.0" prefWidth="48.0" promptText="Town" />
+      <TextField fx:id="email_edit" layoutX="442.0" layoutY="486.0" prefHeight="25.0" prefWidth="55.0" promptText="Email" />
+      <TextField fx:id="password_edit" layoutX="510.0" layoutY="488.0" prefHeight="25.0" prefWidth="65.0" promptText="Password" />
+      <DatePicker fx:id="birtday_edit" layoutX="582.0" layoutY="489.0" prefHeight="16.0" prefWidth="65.0" promptText="Birthday" />
+      <TextField fx:id="insurancename_edit" layoutX="669.0" layoutY="488.0" prefHeight="25.0" prefWidth="90.0" promptText="Insurance Name" />
+      <TextField fx:id="street_edit" layoutX="242.0" layoutY="486.0" prefHeight="25.0" prefWidth="62.0" promptText="Street" />
+   </children>
+</AnchorPane>

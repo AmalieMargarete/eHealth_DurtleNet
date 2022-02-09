@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #83A1CD;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gui.ehealt_v2.RegistrationController">
+   <children>
+      <TextField fx:id="firstname_textfield" layoutX="105.0" layoutY="14.0" promptText="First Name" style="-fx-background-color: d2e1ee;">
+         <font>
+            <Font size="14.0" />
+         </font></TextField>
+      <TextField fx:id="lastname_textfield" layoutX="103.0" layoutY="54.0" promptText="Last Name" style="-fx-background-color: d2e1ee;">
+         <font>
+            <Font size="14.0" />
+         </font></TextField>
+      <TextField fx:id="street_textfield" layoutX="103.0" layoutY="92.0" promptText="Street" style="-fx-background-color: d2e1ee;">
+         <font>
+            <Font size="14.0" />
+         </font></TextField>
+      <TextField fx:id="number_textfield" layoutX="290.0" layoutY="92.0" prefHeight="25.0" prefWidth="46.0" promptText="N." style="-fx-background-color: d2e1ee;">
+         <font>
+            <Font size="14.0" />
+         </font></TextField>
+      <TextField fx:id="zip_textfield" layoutX="103.0" layoutY="132.0" prefHeight="25.0" prefWidth="71.0" promptText="ZIP" style="-fx-background-color: d2e1ee;">
+         <font>
+            <Font size="14.0" />
+         </font></TextField>
+      <TextField fx:id="new_email_textfield" layoutX="103.0" layoutY="263.0" promptText="Email" style="-fx-background-color: d2e1ee;">
+         <font>
+            <Font size="14.0" />
+         </font></TextField>
+      <TextField fx:id="new_password_textfield" layoutX="103.0" layoutY="307.0" promptText="Password">
+         <font>
+            <Font size="14.0" />
+         </font></TextField>
+      <TextField fx:id="insurance_textfield" layoutX="103.0" layoutY="221.0" promptText="Insurance" style="-fx-background-color: d2e1ee;">
+         <font>
+            <Font size="14.0" />
+         </font></TextField>
+      <Button fx:id="registration_button" layoutX="248.0" layoutY="360.0" mnemonicParsing="false" onAction="#registration" style="-fx-background-color: #4b5e62;" text="Register" textFill="WHITE">
+         <font>
+            <Font name="Microsoft Sans Serif" size="15.0" />
+         </font></Button>
+      <TextField fx:id="town_textfield" layoutX="192.0" layoutY="132.0" prefHeight="29.0" prefWidth="149.0" promptText="Town" style="-fx-background-color: d2e1ee;">
+         <font>
+            <Font size="14.0" />
+         </font></TextField>
+      <DatePicker fx:id="birthday" layoutX="105.0" layoutY="187.0" prefHeight="25.0" prefWidth="89.0" promptText="Birthday" style="-fx-background-color: d2e1ee;" />
+      <ComboBox layoutX="290.0" layoutY="223.0" opacity="0.66" prefHeight="25.0" prefWidth="81.0" promptText="Type" style="-fx-background-color: d2e1ee;" />
+      <ImageView fx:id="durtleImageView" fitHeight="280.0" fitWidth="196.0" layoutX="394.0" layoutY="22.0" pickOnBounds="true" preserveRatio="true" style="bac: #769cbc;" />
+      <TextField fx:id="new_password_textfield1" layoutX="284.0" layoutY="307.0" promptText="Confirm Password">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </TextField>
+      <FontAwesomeIconView glyphName="USER" layoutX="66.0" layoutY="35.0" selectionEnd="0" size="20" wrappingWidth="27.90477180480957" />
+      <FontAwesomeIconView glyphName="HOME" layoutX="59.0" layoutY="115.0" selectionEnd="0" size="25" wrappingWidth="27.90477180480957" />
+      <FontAwesomeIconView glyphName="CALENDAR" layoutX="65.0" layoutY="208.0" size="23" wrappingWidth="15.809514045715332" />
+      <FontAwesomeIconView glyphName="PENCIL" layoutX="65.0" layoutY="242.0" size="20" wrappingWidth="15.809514045715332" />
+      <FontAwesomeIconView glyphName="AT" layoutX="67.0" layoutY="282.0" size="20" />
+      <FontAwesomeIconView glyphName="KEY" layoutX="67.0" layoutY="326.0" size="20" />
+   </children>
+</AnchorPane>

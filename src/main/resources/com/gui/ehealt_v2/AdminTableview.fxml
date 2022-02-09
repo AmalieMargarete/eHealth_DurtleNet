@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="506.0" prefWidth="702.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gui.ehealt_v2.AdminController">
+   <children>
+      <Pane layoutY="97.0" prefHeight="15.0" prefWidth="699.0" />
+      <TableView fx:id="user_tableview" layoutX="17.0" layoutY="129.0" prefHeight="270.0" prefWidth="647.0">
+        <columns>
+          <TableColumn fx:id="id_column" prefWidth="25.333343505859375" text="ID" />
+          <TableColumn fx:id="firstname_column" prefWidth="71.99996948242188" text="First Name" />
+            <TableColumn fx:id="lastname_column" prefWidth="68.66665649414062" text="Last Name" />
+            <TableColumn fx:id="street_column" prefWidth="63.33331298828125" text="Street" />
+            <TableColumn fx:id="housenumber_column" prefWidth="32.00001525878906" text="No." />
+            <TableColumn fx:id="zip_column" prefWidth="47.33331298828125" text="ZIP" />
+            <TableColumn fx:id="town_column" prefWidth="52.0" text="Town" />
+            <TableColumn fx:id="email_column" prefWidth="58.6666259765625" text="Email" />
+            <TableColumn fx:id="birthday_column" prefWidth="53.33331298828125" text="Birthday" />
+            <TableColumn fx:id="insurancename_column" prefWidth="66.66659545898438" text="Insurance" />
+            <TableColumn fx:id="insurancetype_column" prefWidth="42.0" text="Type" />
+            <TableColumn fx:id="creationdate_column" prefWidth="63.3333740234375" text="Creation" />
+        </columns>
+      </TableView>
+      <Text layoutX="44.0" layoutY="41.0" strokeType="OUTSIDE" strokeWidth="0.0" text="eHealth User Details" wrappingWidth="242.1366958618164" />
+      <Button fx:id="adduser_view_button" layoutX="50.0" layoutY="72.0" mnemonicParsing="false" text="Add User" />
+      <Button fx:id="edit_user_button" layoutX="133.0" layoutY="72.0" mnemonicParsing="false" text="Edit User" />
+      <Button fx:id="delete_user_button" layoutX="208.0" layoutY="72.0" mnemonicParsing="false" text="Delete User" />
+      <Button fx:id="closeadminview_button" layoutX="598.0" layoutY="24.0" mnemonicParsing="false" text="Close" />
+      <Button fx:id="update_button" layoutX="315.0" layoutY="72.0" mnemonicParsing="false" text="refresh" />
+   </children>
+</AnchorPane>
