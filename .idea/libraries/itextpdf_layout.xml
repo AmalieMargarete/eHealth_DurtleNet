@@ -1,0 +1,17 @@
+<component name="libraryTable">
+  <library name="itextpdf.layout" type="repository">
+    <properties maven-id="com.itextpdf:layout:7.2.1" />
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/com/itextpdf/layout/7.2.1/layout-7.2.1.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/com/itextpdf/kernel/7.2.1/kernel-7.2.1.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/com/itextpdf/io/7.2.1/io-7.2.1.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/com/itextpdf/commons/7.2.1/commons-7.2.1.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/bouncycastle/bcpkix-jdk15on/1.69/bcpkix-jdk15on-1.69.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/bouncycastle/bcutil-jdk15on/1.69/bcutil-jdk15on-1.69.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/bouncycastle/bcprov-jdk15on/1.69/bcprov-jdk15on-1.69.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/slf4j/slf4j-api/1.7.31/slf4j-api-1.7.31.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
