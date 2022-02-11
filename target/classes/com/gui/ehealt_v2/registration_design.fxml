@@ -35,7 +35,7 @@
          <font>
             <Font size="14.0" />
          </font></TextField>
-      <TextField fx:id="new_password_textfield" layoutX="103.0" layoutY="307.0" promptText="Password">
+      <TextField fx:id="new_password_textfield" layoutX="103.0" layoutY="307.0" promptText="Password" style="-fx-background-color: d2e1ee;">
          <font>
             <Font size="14.0" />
          </font></TextField>
@@ -53,8 +53,8 @@
          </font></TextField>
       <DatePicker fx:id="birthday" layoutX="105.0" layoutY="187.0" prefHeight="25.0" prefWidth="89.0" promptText="Birthday" style="-fx-background-color: d2e1ee;" />
       <ComboBox layoutX="290.0" layoutY="223.0" opacity="0.66" prefHeight="25.0" prefWidth="81.0" promptText="Type" style="-fx-background-color: d2e1ee;" />
-      <ImageView fx:id="durtleImageView" fitHeight="280.0" fitWidth="196.0" layoutX="394.0" layoutY="22.0" pickOnBounds="true" preserveRatio="true" style="bac: #769cbc;" />
-      <TextField fx:id="new_password_textfield1" layoutX="284.0" layoutY="307.0" promptText="Confirm Password">
+      <ImageView fx:id="durtleImageView" fitHeight="249.0" fitWidth="196.0" layoutX="381.0" layoutY="54.0" pickOnBounds="true" preserveRatio="true" style="bac: #769cbc;" />
+      <TextField fx:id="confirm_password_textfield" layoutX="284.0" layoutY="307.0" promptText="Confirm Password" style="-fx-background-color: d2e1ee;">
          <font>
             <Font size="14.0" />
          </font>
@@ -65,5 +65,10 @@
       <FontAwesomeIconView glyphName="PENCIL" layoutX="65.0" layoutY="242.0" size="20" wrappingWidth="15.809514045715332" />
       <FontAwesomeIconView glyphName="AT" layoutX="67.0" layoutY="282.0" size="20" />
       <FontAwesomeIconView glyphName="KEY" layoutX="67.0" layoutY="326.0" size="20" />
+      <Button fx:id="back_button" layoutX="462.0" layoutY="14.0" mnemonicParsing="false" onAction="#ReturnToLogin" prefHeight="28.0" prefWidth="115.0" style="-fx-background-color: #4b5e62;" text="Back to Login" textFill="WHITE">
+         <font>
+            <Font name="Microsoft Sans Serif" size="15.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>

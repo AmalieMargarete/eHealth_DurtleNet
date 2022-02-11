@@ -7,6 +7,9 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
+import javax.swing.*;
+import java.io.File;
+import java.io.FileWriter;
 import java.sql.*;
 
 /**
@@ -33,6 +36,8 @@ public class HealthInformationController {
     private TextArea medicineArea;
     @FXML
     private TextArea allergiesArea;
+    @FXML
+    private TextField filePathTextField;
 
     /**
      * Methode stores the health information from the user in a database table. It checks if
@@ -105,6 +110,38 @@ public class HealthInformationController {
 
 
         connection.close();
+    }
+
+    /**
+     * method to select a folder to save the healthInformation of the user. JFileChooser opens the internal folder tree
+     * where the user can select the saving directory. The directory will be saved in a .txt file for further use.
+     */
+    @FXML
+    public void selectPathOnClick(){
+        JFileChooser fileChooser = new JFileChooser();
+
+        fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);        // select only folders
+        fileChooser.showSaveDialog(null);                                 // select file to save
+        String path = fileChooser.getSelectedFile().getAbsolutePath();          // get path
+        filePathTextField.setText(path);    // show path in txtField
+        path = path.replace("\\", "\\\\");
+        System.out.println(path);
+
+        FileWriter writer;
+        File file = new File("HealthInfoPath.txt");                     // file with filename
+
+        try{
+            writer = new FileWriter(file, false);
+            writer.write(path); // "write" selected path name
+            writer.flush();     // writes and checks if data is written
+            writer.close();
+
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+
+
+
     }
 
     public void setUserInfo(User user){

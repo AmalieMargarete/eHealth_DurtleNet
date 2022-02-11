@@ -17,10 +17,12 @@ import javafx.scene.control.MenuBar;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.sql.*;
+import java.util.Scanner;
 
 /**
  * Class to control the elements for the main page
@@ -124,8 +126,20 @@ public class MainPageController {
         // TODO: adding images need an other structure of elements, if theres time i will implement this
    //     String dest = "E:/healthInfo.pdf";
    //     PdfWriter writer = new PdfWriter(dest);
+
+        // reads path from ...Path.txt file
+        Scanner scanner;
+        String path = "C:\\";
+        File file = new File("HealthInfoPath.txt");
+        if(file.exists()){
+            scanner = new Scanner(file);
+            path = scanner.next();
+            scanner.close();
+        }
+
+
         Document document = new Document();
-        PdfWriter.getInstance(document, new FileOutputStream("healthInformation.pdf"));
+        PdfWriter.getInstance(document, new FileOutputStream(path + "\\HealthInfo.pdf"));
         //PdfDocument pdfDocument = new PdfDocument(writer);
         document.open();
         System.out.println("Document was found and opened");
