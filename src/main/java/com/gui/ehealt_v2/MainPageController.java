@@ -89,12 +89,11 @@ public class MainPageController {
     /**
      * Method that prints the health information into a PDF, by using the user from the user holder
      * and accessing his health info from the database
-     * @param event
      * @throws FileNotFoundException
      * @throws DocumentException
      */
     @FXML
-    protected void onPrintMenuClick(ActionEvent event) throws FileNotFoundException, DocumentException {
+    protected void onPrintMenuClick() throws FileNotFoundException, DocumentException {
 
         UserHolder userHolder = UserHolder.getInstance();
         User user = userHolder.getUser();

@@ -2,21 +2,30 @@ package com.gui.ehealt_v2;
 
 import UserManagement.User;
 import UserManagement.UserHolder;
+import com.itextpdf.text.DocumentException;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
 import javax.swing.*;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
+import java.io.IOException;
 import java.sql.*;
+import java.util.Scanner;
 
 /**
  * Class controls GUI of health information
  * @author Viktor Benini; StudentID: 1298976
  */
 public class HealthInformationController {
+
+    SceneController controller = new SceneController();
 
     @FXML
     private Label nameLabel;
@@ -46,7 +55,7 @@ public class HealthInformationController {
      * @throws SQLException
      */
     @FXML
-    public void setHealthInfoOnClick() throws SQLException {
+    public void setHealthInfoOnClick() throws SQLException, DocumentException, FileNotFoundException {
         UserHolder holder = UserHolder.getInstance();
         User user = holder.getUser();
 
@@ -83,6 +92,14 @@ public class HealthInformationController {
                     e.printStackTrace();
                 }
                 connection.close();
+
+
+                MainPageController mainPageController = new MainPageController();
+                mainPageController.onPrintMenuClick();
+
+                // close stage
+                Stage stage = (Stage)nameLabel.getScene().getWindow();
+                stage.close();
                 return;
             }
         }
@@ -105,11 +122,11 @@ public class HealthInformationController {
         }catch (SQLException e){
             e.printStackTrace();
         }
-
-
-
-
         connection.close();
+
+        // close stage after saving file
+        Stage stage = (Stage)nameLabel.getScene().getWindow();
+        stage.close();
     }
 
     /**
@@ -123,8 +140,8 @@ public class HealthInformationController {
         fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);        // select only folders
         fileChooser.showSaveDialog(null);                                 // select file to save
         String path = fileChooser.getSelectedFile().getAbsolutePath();          // get path
-        filePathTextField.setText(path);    // show path in txtField
-        path = path.replace("\\", "\\\\");
+        filePathTextField.setText(path);                                        // show path in txtField
+        path = path.replace("\\", "\\\\");                      // replace the \ with \\ because java
         System.out.println(path);
 
         FileWriter writer;
@@ -140,15 +157,40 @@ public class HealthInformationController {
             e.printStackTrace();
         }
 
-
-
+        // show the HealthInformation Edit window primary
+        Stage stage = (Stage)nameLabel.getScene().getWindow();
+        stage.show();
     }
 
-    public void setUserInfo(User user){
+    @FXML
+    public void switchToMainPage(ActionEvent event) throws IOException {
+        controller.switchToMainPage(event);
+    }
+
+    public void setUserInfo(User user) throws FileNotFoundException {
         nameLabel.setText(user.getFirstname() + " " + user.getLastName() + "\n" +
                 user.getEmail() + "\n" +
                 user.getPhoneNumber());
         addressLabel.setText(user.getStreet() + " " + user.getHousenumber() + "\n" +
                 user.getZip() + " " + user.getTown());
+
+        // file path
+        Scanner scanner;                                        // create scanner to read from file
+        File file = new File("HealthInfoPath.txt");     // load file
+        if(file.exists()) {
+            try {
+                scanner = new Scanner(file);
+                String path = scanner.next();                   // selects next element (String)
+                path.replace("\\\\", "\\");     // replaces \\ by \
+                filePathTextField.setText(path);                // for user friendly use
+                scanner.close();
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }else {
+            filePathTextField.setText("C:\\");                  // set default path
+        }
+
     }
 }
