@@ -60,7 +60,7 @@ public class RegistrationController {
     @FXML
     private TextField insurance_textfield;
     @FXML
-    private ComboBox <String> insurance_type;
+    public ComboBox <String> insurance_type;
     @FXML
     private TextField new_email_textfield;
 
@@ -72,7 +72,7 @@ public class RegistrationController {
     private String [] insurancetype={"Public", "Private"};
 
     public void setAll(){
-        insurance_type.setItems(FXCollections.observableArrayList(insurancetype));
+        insurance_type= new ComboBox(FXCollections.observableArrayList(insurancetype));
     }
 
     public void registration(ActionEvent event) throws Exception{
@@ -214,5 +214,7 @@ public class RegistrationController {
     public void setImage(Image image){
         durtleImageView.setImage(image);
     }
+
+
 
 }

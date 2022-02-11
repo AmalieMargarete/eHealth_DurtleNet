@@ -21,9 +21,10 @@ public class TestUser {
     String email_;
     Date birth;
     String insu;
+    int isAdmin;
     //Insurance type; tricky with enums discuss solution here
 
-    public TestUser(int id_user, String first, String last, String stre, String numb, String zip_, String town_, String email_, Date birth, String insu) {
+    public TestUser(int id_user, String first, String last, String stre, String numb, String zip_, String town_, String email_, Date birth, String insu, int isAdmin) {
     this.id_user=id_user;
     this.first=first;
     this.last=last;
@@ -34,7 +35,16 @@ public class TestUser {
     this.email_=email_;
     this.birth=birth;
     this.insu=insu;
+    this.isAdmin=isAdmin;
     //this.type=type;
+    }
+
+    public int getIsAdmin() {
+        return isAdmin;
+    }
+
+    public void setIsAdmin(int isAdmin) {
+        this.isAdmin = isAdmin;
     }
 
     public int getId_user() {

@@ -20,7 +20,7 @@ public class User {
     protected String firstname;
     protected String lastName;
     protected String street;
-
+    int IsAdmin;
     protected String housenumber;
     protected String zip;
     protected String town;
@@ -40,7 +40,7 @@ public class User {
     //  main Constructor
     public User(){}
     public User(int id, String firstname, String lastName, String street, String housenumber, String zip, String town,
-                String email, Date birthday, String Created, String insurancename, String insurancetype, String phoneNumber, float latitude, float longitude){
+                String email, Date birthday, String Created, String insurancename, int IsAdmin, String insurancetype, String phoneNumber, float latitude, float longitude){
         this.id = id;
         //this.gender = gender;
         this.firstname = firstname;
@@ -53,6 +53,7 @@ public class User {
         this.birthday=birthday;
         this.Created=Created;
         this.insurancename=insurancename;
+        this.IsAdmin=IsAdmin;
         this.insurancetype=insurancetype;
         this.phoneNumber = phoneNumber;
         this.latitude=latitude;
@@ -231,6 +232,14 @@ public class User {
 
     public float getLongitude() {
         return longitude;
+    }
+
+    public int getIsAdmin() {
+        return IsAdmin;
+    }
+
+    public void setIsAdmin(int isAdmin) {
+        IsAdmin = isAdmin;
     }
 
     public void setLongitude(float longitude) {

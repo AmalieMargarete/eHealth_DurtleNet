@@ -47,6 +47,8 @@ public class AdminViewController {
     @FXML
     private TableColumn<TestUser, String> insurancename_col;
     @FXML
+    private TableColumn<TestUser, Integer> admin_col;
+    @FXML
     private TableColumn<TestUser, String> insurancetype_col;
     //@FXML
     //private TableColumn<User, String> creationdate_column;
@@ -103,7 +105,7 @@ public class AdminViewController {
     //@FXML
     //private ComboBox insurancetype_box;
 
-    ObservableList<TestUser> testUserObservableList= FXCollections.observableArrayList();
+    ObservableList<TestUser> testUserObservableList = FXCollections.observableArrayList();
     /*ObservableList<String> insurancetypeList=FXCollections.observableArrayList("Public", "Private");
 
 
@@ -116,23 +118,23 @@ public class AdminViewController {
 
     public void DisplayUsers(ActionEvent event) throws Exception {
         Connection connection = null;
-        PreparedStatement preparedStatement=null;
-        ResultSet resultSet=null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
 
         try {
             testUserObservableList.clear();
             connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/ehealth_db", "ehealth", "hells");
             System.out.println("Successful DB connection");
-            resultSet=connection.createStatement().executeQuery("SELECT * FROM users");
+            resultSet = connection.createStatement().executeQuery("SELECT * FROM users");
 
-            while(resultSet.next()){
+            while (resultSet.next()) {
                 testUserObservableList.add(new TestUser(resultSet.getInt("id"), resultSet.getString("FirstName"), resultSet.getString("LastName"), resultSet.getString("Street"),
-                        resultSet.getString("HouseNumber"), resultSet.getString("ZIP"),resultSet.getString("Town"),
-                        resultSet.getString("Email"), resultSet.getDate("BirthDate"), resultSet.getString("InsuranceName")));
+                        resultSet.getString("HouseNumber"), resultSet.getString("ZIP"), resultSet.getString("Town"),
+                        resultSet.getString("Email"), resultSet.getDate("BirthDate"), resultSet.getString("InsuranceName"), resultSet.getInt("IsAdmin")));
             }
 
 
-        }catch(SQLException exception){
+        } catch (SQLException exception) {
             System.out.println("Something went wrong connection wise while loading user list");
         }
 
@@ -147,6 +149,7 @@ public class AdminViewController {
         birthday_col.setCellValueFactory(new PropertyValueFactory<>("birth"));
         insurancename_col.setCellValueFactory(new PropertyValueFactory<>("insu"));
         insurancetype_col.setCellValueFactory(new PropertyValueFactory<>("type"));
+        admin_col.setCellValueFactory(new PropertyValueFactory<>("isAdmin"));
         user_table.setItems(testUserObservableList);
     }
 
@@ -155,43 +158,41 @@ public class AdminViewController {
     //   System.out.println(b.toString());  //just to check date is entered
     //}
     //Method to add user after button is clicked
-    public void addNewUser(ActionEvent event) throws Exception{
+    public void addNewUser(ActionEvent event) throws Exception {
 
-        Window owner=adduser_button.getScene().getWindow();
-        if(email_input.getText().isEmpty() || password_input.getText().isEmpty()){
+        Window owner = adduser_button.getScene().getWindow();
+        if (email_input.getText().isEmpty() || password_input.getText().isEmpty()) {
             showAlert(Alert.AlertType.ERROR, owner, "Form Error!", "Email and password is mandatory even as an admin add");
             return;
         }
-        String fn=firstname_input.getText();
-        String ln=lastname_input.getText();
-        String str=street_input.getText();
-        String hn=number_input.getText();
-        String zi=zip_input.getText();
-        String to=town_input.getText();
-        String em=email_input.getText();
-        String pw=password_input.getText();
-        LocalDate bi=b;
-        String in=insurancename_input.getText();
+        String fn = firstname_input.getText();
+        String ln = lastname_input.getText();
+        String str = street_input.getText();
+        String hn = number_input.getText();
+        String zi = zip_input.getText();
+        String to = town_input.getText();
+        String em = email_input.getText();
+        String pw = password_input.getText();
+        LocalDate bi = b;
+        String in = insurancename_input.getText();
 
         Connection connection;
         PreparedStatement Insert = null;
-        PreparedStatement DoesUserExist=null;
-        ResultSet resultSet=null;
+        PreparedStatement DoesUserExist = null;
+        ResultSet resultSet = null;
 
         try {
-            connection= DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/ehealth_db", "ehealth", "hells"); //localhost:3306/
+            connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/ehealth_db", "ehealth", "hells"); //localhost:3306/
             System.out.println("Successful DB connection");
-            DoesUserExist=connection.prepareStatement("SELECT * FROM users WHERE Email=?");
+            DoesUserExist = connection.prepareStatement("SELECT * FROM users WHERE Email=?");
             DoesUserExist.setString(1, em);
-            resultSet=DoesUserExist.executeQuery();  //never forget executeQuery because otherwise everything does not work
+            resultSet = DoesUserExist.executeQuery();  //never forget executeQuery because otherwise everything does not work
 
-            if(resultSet.isBeforeFirst()){
+            if (resultSet.isBeforeFirst()) {
                 System.out.println("User already exists");  //wouldnt this be a security thing
                 showAlert(Alert.AlertType.ERROR, owner, "Form Error", "Unable to register, user already exists");
                 return;
-            }
-
-            else {
+            } else {
 
                 Insert = connection.prepareStatement("INSERT INTO users (FirstName, LastName, Street, HouseNumber, ZIP, Town, Email, Kennwort, InsuranceName) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
                 Insert.setString(1, fn);
@@ -218,7 +219,7 @@ public class AdminViewController {
                 insurancename_input.clear();
             }
 
-        }catch(SQLException ex){
+        } catch (SQLException ex) {
             System.out.println("Unsuccessful connection");
         }
 
@@ -230,16 +231,15 @@ public class AdminViewController {
         if (userid_input.getText().isEmpty()) {
             showAlert(Alert.AlertType.ERROR, owner, "Form Error!", "User ID needs to be entered to edit specific user");
             return;
-        }
-        else {
+        } else {
             Connection connection;
             PreparedStatement Insert = null;
             PreparedStatement DoesUserIDExist = null;
-            PreparedStatement DoesUserEmailExist=null;
+            PreparedStatement DoesUserEmailExist = null;
             ResultSet resultSet = null;
 
             try {
-                int userid=Integer.parseInt(userid_input.getText());
+                int userid = Integer.parseInt(userid_input.getText());
                 connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/ehealth_db", "ehealth", "hells"); //localhost:3306/
                 System.out.println("Successful DB connection");
                 DoesUserIDExist = connection.prepareStatement("SELECT * FROM users WHERE id=?");
@@ -247,7 +247,7 @@ public class AdminViewController {
                 resultSet = DoesUserIDExist.executeQuery();  //never forget executeQuery because otherwise everything does not work
 
                 //check if resultSet is empty
-                if (resultSet.next()==false) {
+                if (resultSet.next() == false) {
                     System.out.println("UserID does not exist");  //wouldnt this be a security thing
                     showAlert(Alert.AlertType.ERROR, owner, "Form Error", "Unable to find UserID");
                     return;
@@ -276,8 +276,9 @@ public class AdminViewController {
                     Insert.executeUpdate();
                 }
 
+
                 if (!number_edit.getText().isEmpty()) {
-                    String nn=number_edit.getText();
+                    String nn = number_edit.getText();
                     Insert = connection.prepareStatement("UPDATE users SET HouseNumber=? WHERE id=?");
                     Insert.setString(1, nn);
                     Insert.setInt(2, userid);
@@ -285,7 +286,7 @@ public class AdminViewController {
                 }
 
                 if (!zip_edit.getText().isEmpty()) {
-                    String nz=zip_edit.getText();
+                    String nz = zip_edit.getText();
                     Insert = connection.prepareStatement("UPDATE users SET ZIP=? WHERE id=?");
                     Insert.setString(1, nz);
                     Insert.setInt(2, userid);
@@ -293,7 +294,7 @@ public class AdminViewController {
                 }
 
                 if (!town_edit.getText().isEmpty()) {
-                    String nt=town_edit.getText();
+                    String nt = town_edit.getText();
                     Insert = connection.prepareStatement("UPDATE users SET Town=? WHERE id=?");
                     Insert.setString(1, nt);
                     Insert.setInt(2, userid);
@@ -301,27 +302,26 @@ public class AdminViewController {
                 }
 
                 if (!email_edit.getText().isEmpty()) {
-                    String ne=email_edit.getText();
-                    DoesUserEmailExist=connection.prepareStatement("SELECT * FROM users WHERE Email=?");
+                    String ne = email_edit.getText();
+                    DoesUserEmailExist = connection.prepareStatement("SELECT * FROM users WHERE Email=?");
                     DoesUserEmailExist.setString(1, ne);
-                    resultSet=DoesUserEmailExist.executeQuery();  //never forget executeQuery because otherwise everything does not work
+                    resultSet = DoesUserEmailExist.executeQuery();  //never forget executeQuery because otherwise everything does not work
                     System.out.println("Check if account exists");
 
-                    if(resultSet.isBeforeFirst()){
+                    if (resultSet.isBeforeFirst()) {
                         System.out.println("User already exists");  //wouldn't this be a security thing
                         showAlert(Alert.AlertType.ERROR, owner, "Form Error", "Email is already in database usage");
                         return;
-                    }
-                    else {
+                    } else {
                         Insert = connection.prepareStatement("UPDATE users SET Email=? WHERE id=?");
                         Insert.setString(1, ne);
                         Insert.setInt(2, userid);
                         Insert.executeUpdate();
                     }
                 }
-        //can an admin change a password?
+                //can an admin change a password?
                 if (!password_edit.getText().isEmpty()) {
-                    String np=password_edit.getText();
+                    String np = password_edit.getText();
                     Insert = connection.prepareStatement("UPDATE users SET Kennwort=? WHERE id=?");
                     Insert.setString(1, np);
                     Insert.setInt(2, userid);
@@ -329,13 +329,12 @@ public class AdminViewController {
                 }
 
                 if (!insurancename_edit.getText().isEmpty()) {
-                    String ni=insurancename_edit.getText();
+                    String ni = insurancename_edit.getText();
                     Insert = connection.prepareStatement("UPDATE users SET InsuranceName=? WHERE id=?");
                     Insert.setString(1, ni);
                     Insert.setInt(2, userid);
                     Insert.executeUpdate();
                 }
-
                 //clears text fields after text entry
                 userid_input.clear();
                 firstname_edit.clear();
@@ -349,49 +348,47 @@ public class AdminViewController {
                 //birthday_input.setValue(null);
                 insurancename_edit.clear();
 
-            }catch(SQLException ex){
+            } catch (SQLException ex) {
                 System.out.println("Unsuccessful connection");
             }
-
-
-
 
         }
     }
 
-    public void deleteUser(ActionEvent event) throws Exception{
+    public void deleteUser(ActionEvent event) throws Exception {
 
         ObservableList<TestUser> selectedUser, allUsers;
-        allUsers=user_table.getItems();
-        selectedUser=user_table.getSelectionModel().getSelectedItems();
-        Connection connection=null;
-        PreparedStatement preparedStatement=null;
+        allUsers = user_table.getItems();
+        selectedUser = user_table.getSelectionModel().getSelectedItems();
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
 
         try {
             connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/ehealth_db", "ehealth", "hells"); //localhost:3306/
             System.out.println("Successful DB connection");
-            preparedStatement=connection.prepareStatement("DELETE FROM users WHERE Email=?");
+            preparedStatement = connection.prepareStatement("DELETE FROM users WHERE Email=?");
             preparedStatement.setString(1, user_table.getSelectionModel().getSelectedItem().getEmail_());
             preparedStatement.executeUpdate();
-        }
-        catch(SQLException exception){
+        } catch (SQLException exception) {
             System.out.println("Something went wrong with the DB connection while deleting user");
         }
 
 
     }
 
-    public void AdminLogout(ActionEvent event) throws Exception{
+    public void AdminLogout(ActionEvent event) throws Exception {
         controller.switchToLogin(event);
 
     }
+
     public static void showAlert(Alert.AlertType alertType, Window owner, String s, String alertmessage) {
 
-        Alert alert= new Alert(alertType);
+        Alert alert = new Alert(alertType);
         alert.setTitle(s);
         alert.setHeaderText(null);
         alert.setContentText(alertmessage);
         alert.initOwner(owner);
         alert.show();
     }
+
 }

@@ -53,12 +53,11 @@
                <font>
                   <Font name="Microsoft Sans Serif" size="13.0" />
                </font></Button>
-            <MenuBar fx:id="myMenuBar" layoutX="-3.0" prefHeight="25.0" prefWidth="386.0" style="-fx-background-color: #4b5e62;">
+            <MenuBar fx:id="myMenuBar" layoutX="-3.0" prefHeight="25.0" prefWidth="321.0" style="-fx-background-color: #4b5e62;">
               <menus>
                 <Menu mnemonicParsing="false" text="Profile">
                   <items>
                         <MenuItem mnemonicParsing="false" onAction="#onViewUserProfile" text="View Profile" />
-                    <MenuItem mnemonicParsing="false" onAction="#switchToLogin" text="logout" />
                   </items>
                 </Menu>
                   <Menu mnemonicParsing="false" text="Health Info">
@@ -75,6 +74,11 @@
               </menus>
             </MenuBar>
             <ImageView fx:id="mainPageImageView" fitHeight="150.0" fitWidth="200.0" layoutX="180.0" layoutY="36.0" pickOnBounds="true" preserveRatio="true" />
+            <Button fx:id="logout_button" layoutX="318.0" layoutY="-5.0" mnemonicParsing="false" onAction="#switchToLogin" prefHeight="31.0" prefWidth="64.0" style="-fx-background-color: #657478;" text="Logout" textFill="WHITE">
+               <font>
+                  <Font name="Microsoft Sans Serif" size="13.0" />
+               </font>
+            </Button>
          </children>
     </AnchorPane>
   </children>

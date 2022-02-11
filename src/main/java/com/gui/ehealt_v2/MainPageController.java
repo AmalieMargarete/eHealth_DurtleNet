@@ -34,6 +34,8 @@ public class MainPageController {
     MenuBar myMenuBar;
     @FXML
     private ImageView mainPageImageView;
+    @FXML
+    private Button logout_button;
 
     // used to switch scenes
     final private SceneController controller = new SceneController();
@@ -46,6 +48,7 @@ public class MainPageController {
     public void switchToLogin(ActionEvent event) throws IOException {
         controller.switchToLogin(event);
     }
+
 
     public void switchToLoginTwo(){}
 
