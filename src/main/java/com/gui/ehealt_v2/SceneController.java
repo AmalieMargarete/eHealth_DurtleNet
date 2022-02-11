@@ -59,7 +59,7 @@ public class SceneController {
      * @throws IOException
      */
     public void switchToLogin(ActionEvent event) throws IOException {
-        root = FXMLLoader.load(getClass().getResource("login_design.fxml"));
+        root = FXMLLoader.load(getClass().getResource("login_design_amalie.fxml"));
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
@@ -67,7 +67,7 @@ public class SceneController {
     }
 
     public void switchToLoginTwo(MenuBar bar) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("login.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("login_design_amalie.fxml"));
         root = loader.load();
         HelloController helloController = loader.getController();
         stage = (Stage) bar.getScene().getWindow();
@@ -212,7 +212,7 @@ public class SceneController {
         User user = holder.getUser();
         System.out.println(user.getFirstname());
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("userProfile.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("userProfile_design_amalie.fxml"));
         Parent root=loader.load();
         UserProfileController userProfileController=loader.getController();
         userProfileController.setUserInfo(user);

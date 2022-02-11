@@ -39,14 +39,21 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
 <VBox fx:id="vbox" prefHeight="225.0" prefWidth="319.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gui.ehealt_v2.MainPageController">
   <children>
     <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="225.0" prefWidth="246.0" style="-fx-background-color: #83A1CD;" VBox.vgrow="ALWAYS">
          <children>
-            <Button fx:id="makeAppointment" layoutX="14.0" layoutY="99.0" mnemonicParsing="false" onAction="#onMakeAppointmentButtonClick" prefHeight="25.0" prefWidth="130.0" text="Make Appointment" />
-            <Button fx:id="viewAppointmentButton" layoutX="14.0" layoutY="139.0" mnemonicParsing="false" onAction="#onViewAppointmentButtonClick" prefHeight="25.0" prefWidth="130.0" text="View Appointments" />
-            <MenuBar fx:id="myMenuBar" layoutX="-3.0" prefHeight="25.0" prefWidth="386.0" style="-fx-background-color: #85A2CE;">
+            <Button fx:id="makeAppointment" layoutX="14.0" layoutY="99.0" mnemonicParsing="false" onAction="#onMakeAppointmentButtonClick" prefHeight="25.0" prefWidth="130.0" style="-fx-background-color: #4b5e62;" text="Make Appointment" textFill="WHITE">
+               <font>
+                  <Font name="Microsoft Sans Serif" size="13.0" />
+               </font></Button>
+            <Button fx:id="viewAppointmentButton" layoutX="14.0" layoutY="139.0" mnemonicParsing="false" onAction="#onViewAppointmentButtonClick" prefHeight="25.0" prefWidth="130.0" style="-fx-background-color: #4b5e62;" text="View Appointments" textFill="WHITE">
+               <font>
+                  <Font name="Microsoft Sans Serif" size="13.0" />
+               </font></Button>
+            <MenuBar fx:id="myMenuBar" layoutX="-3.0" prefHeight="25.0" prefWidth="386.0" style="-fx-background-color: #4b5e62;">
               <menus>
                 <Menu mnemonicParsing="false" text="Profile">
                   <items>
