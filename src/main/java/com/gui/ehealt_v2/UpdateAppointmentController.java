@@ -13,6 +13,7 @@ import javafx.stage.Window;
 
 import java.sql.*;
 import java.time.LocalDate;
+import java.time.LocalTime;
 
 /**
  * Class that handles the GUI, to update the selected time of an appointment
@@ -46,8 +47,12 @@ public class UpdateAppointmentController {
      */
     public void onOkButtonClick() throws SQLException {
 
-        if(datePicker.getValue().isBefore(LocalDate.now())){
+        if(datePicker.getValue().isBefore(LocalDate.now()) ||(                             // check if date is in the past or
+                datePicker.getValue().isEqual(LocalDate.now()) &&                          // check if date is in the past and
+                        LocalTime.parse(timeComboBox.getSelectionModel().getSelectedItem()).isBefore(LocalTime.now()) // time is in the past
+        )){
             showAlert(Alert.AlertType.ERROR, okButton.getScene().getWindow(), "Form Error!", "The picked date is in the past");
+            return;
         }
 
         // shows error if date is already taken

@@ -218,7 +218,10 @@ public class MakeAppointmentController {
             return;
         }
         // check if date is in the future
-        if(datePicker.getValue().isBefore(LocalDate.now())){
+        if(datePicker.getValue().isBefore(LocalDate.now()) &&                               // if date is okey
+                LocalTime.now().isBefore(                                                   // if time is ok
+                LocalTime.parse(timeComboBox.getSelectionModel().getSelectedItem())         // convert string to time
+        )){
             showAlert(Alert.AlertType.ERROR, owner, "Form Error!", "The selected date is in the past!");
             return;
         }
