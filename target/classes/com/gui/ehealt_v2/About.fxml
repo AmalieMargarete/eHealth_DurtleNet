@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.Blend?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane prefHeight="393.0" prefWidth="592.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gui.ehealt_v2.AboutController">
+   <children>
+      <AnchorPane layoutX="-7.0" layoutY="-1.0" minHeight="-Infinity" prefHeight="406.0" prefWidth="608.0" style="-fx-background-color: #6082b5;">
+         <children>
+            <Label layoutX="29.0" layoutY="187.0" prefHeight="33.0" prefWidth="158.0" text="Impressum">
+               <font>
+                  <Font name="Bitstream Vera Sans Mono Bold" size="18.0" />
+               </font>
+            </Label>
+            <AnchorPane layoutX="-7.0" layoutY="-6.0" prefHeight="63.0" prefWidth="618.0" style="-fx-background-color: #4b5e62;">
+               <children>
+                  <Label layoutX="28.0" layoutY="14.0" prefHeight="39.0" prefWidth="327.0" text="DurtleNet" textFill="WHITE">
+                     <font>
+                        <Font name="Bitstream Vera Sans Mono Bold" size="25.0" />
+                     </font>
+                  </Label>
+                  <Button fx:id="back_button" layoutX="531.0" layoutY="20.0" onAction="#returnToMain" prefHeight="23.0" prefWidth="57.0" style="-fx-background-color: #657478;" text="Back" textFill="WHITE">
+                     <font>
+                        <Font name="Microsoft Sans Serif" size="15.0" />
+                     </font>
+                  </Button>
+               </children>
+            </AnchorPane>
+            <VBox layoutX="28.0" layoutY="220.0" prefHeight="166.0" prefWidth="319.0">
+               <children>
+                  <Label prefHeight="33.0" prefWidth="496.0" text="Information in accordance with section 5 TMG" textFill="WHITE">
+                     <font>
+                        <Font name="Bitstream Vera Sans Mono Bold" size="10.0" />
+                     </font>
+                  </Label>
+                  <Label prefHeight="33.0" prefWidth="496.0" text="DurtleNet">
+                     <font>
+                        <Font name="Bitstream Vera Sans Mono Bold" size="18.0" />
+                     </font>
+                  </Label>
+                  <Label prefHeight="33.0" prefWidth="496.0" text="Nibelungenplatz 1">
+                     <font>
+                        <Font name="Bitstream Vera Sans Mono Bold" size="18.0" />
+                     </font>
+                  </Label>
+                  <Label prefHeight="33.0" prefWidth="496.0" text="60318 Frankfurt">
+                     <font>
+                        <Font name="Bitstream Vera Sans Mono Bold" size="18.0" />
+                     </font>
+                  </Label>
+                  <Label prefHeight="33.0" prefWidth="496.0" text="E-Mail: durtleteam@gmail.com">
+                     <font>
+                        <Font name="Bitstream Vera Sans Mono Bold" size="18.0" />
+                     </font>
+                  </Label>
+               </children>
+            </VBox>
+            <Label layoutX="28.0" layoutY="88.0" prefHeight="33.0" prefWidth="556.0" text="Questions or concerns? Or have any ideas how to make us even more cool?" textFill="WHITE">
+               <font>
+                  <Font name="Bitstream Vera Sans Mono Bold" size="12.0" />
+               </font>
+            </Label>
+            <Label layoutX="28.0" layoutY="115.0" prefHeight="33.0" prefWidth="556.0" text="Send us an email at durtleteam@gmail.com" textFill="WHITE">
+               <font>
+                  <Font name="Bitstream Vera Sans Mono Bold" size="12.0" />
+               </font>
+            </Label>
+            <FontAwesomeIconView fill="WHITE" glyphName="STAR" layoutX="324.0" layoutY="135.0" wrappingWidth="22.142857551574707" />
+         </children>
+         <effect>
+            <Blend />
+         </effect>
+      </AnchorPane>
+   </children>
+</AnchorPane>
