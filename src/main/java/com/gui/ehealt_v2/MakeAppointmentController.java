@@ -304,7 +304,7 @@ public class MakeAppointmentController {
             //just test email to make sure email is working and the database pull is the problem
             //MailUtil.sendMail(testemailuser, "Test", "Test", "Test", "Test", "1234", "Test", datePicker.getValue(), timeComboBox.getSelectionModel().getSelectedItem());
 
-        }catch(SQLException | MessagingException e){
+        }catch(SQLException | MessagingException e ){
             System.out.println("Connection failed in MakeAppointment or potentially email sending went wrong");
         }
         connection.close();
