@@ -40,6 +40,8 @@ public class UserProfileController{
     private Text insurancename_text;
     @FXML
     private Button edit_button;
+    @FXML
+    private Button back_button;
 
 
 
@@ -61,7 +63,11 @@ public class UserProfileController{
         insurancename_text.setText(user.getInsurancename());
 
     }
+    public void returnToMain(ActionEvent event) throws IOException{
+        controller.switchToMainPage(event);
 
+
+    }
     public void switchToEditUser(ActionEvent event) throws IOException{
         controller.switchToEditUser(event);
 

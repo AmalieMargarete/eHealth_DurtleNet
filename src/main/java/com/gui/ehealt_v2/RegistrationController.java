@@ -12,17 +12,15 @@ package com.gui.ehealt_v2;
 import Encryption.HashClass;
 import GoogleMaps.*;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Window;
-import org.controlsfx.control.tableview2.filter.filtereditor.SouthFilter;
-import org.w3c.dom.Text;
 
 import java.sql.*;
+import java.time.LocalDate;
 
 public class RegistrationController {
     String db_password = "hells";  //
@@ -39,6 +37,8 @@ public class RegistrationController {
     //Registration Form FXML Elements
     @FXML
     private Button registration_button;
+    @FXML
+    private Button back_button;
     @FXML
     private TextField firstname_textfield;
 
@@ -66,6 +66,8 @@ public class RegistrationController {
 
     @FXML
     private TextField new_password_textfield;
+    @FXML
+            private TextField confirm_password_textfield;
 
     String [] insurancetype={"Public", "Private"};
 
@@ -102,7 +104,11 @@ public class RegistrationController {
         String in=insurance_textfield.getText();
         String em=new_email_textfield.getText();
         String npw=new_password_textfield.getText();
+        String cnpw=confirm_password_textfield.getText();
+        LocalDate now= LocalDate.now();
         System.out.println(fn);
+        System.out.println("Password entered "+npw);
+        System.out.println("confirmation password entered " +cnpw);
 
         //additional formatting for address entries in case there are spaces
         String str_nospaces=str.replaceAll("\\s","");  //String street address without spaces
@@ -125,6 +131,21 @@ public class RegistrationController {
             if(resultSet.isBeforeFirst()){
                 System.out.println("User already exists");  //wouldn't this be a security thing
                 showAlert(Alert.AlertType.ERROR, owner, "Form Error", "Unable to register, user already exists");
+                return;
+            }
+
+            if(false==npw.equals(cnpw)){
+                System.out.println("Passwords do not match!");
+                showAlert(Alert.AlertType.ERROR, owner, "Form Error", "Passwords do not match!");
+                new_password_textfield.clear();
+                confirm_password_textfield.clear();
+                return;
+            }
+
+            if(bd.after(Date.valueOf(now))){
+                System.out.println("Birthday in future");
+                showAlert(Alert.AlertType.ERROR, owner, "Form Error", "We don´t accept travelers from the future as clients just yet");
+                birthday.setValue(null);
                 return;
             }
 
@@ -157,6 +178,10 @@ public class RegistrationController {
         connection.close();
     }
 
+    public void ReturnToLogin(ActionEvent event) throws Exception{
+        controller.switchToLogin(event);
+
+    }
 
     public static void showAlert(Alert.AlertType alertType, Window owner, String s, String alertmessage) {
 

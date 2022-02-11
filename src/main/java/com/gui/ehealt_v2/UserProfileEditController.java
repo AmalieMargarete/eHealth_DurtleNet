@@ -9,6 +9,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.stage.Window;
+import org.w3c.dom.Text;
 
 import java.sql.*;
 import java.time.LocalDate;
@@ -32,6 +33,8 @@ public class UserProfileEditController {
     private TextField email_input;
     @FXML
     private TextField password_input;
+    @FXML
+    private TextField password_confirmation;
     @FXML
     private DatePicker birthday_input;
     @FXML
@@ -142,6 +145,18 @@ public class UserProfileEditController {
 
                 //can an admin change a password?
                 if (!password_input.getText().isEmpty()) {
+                    if(password_confirmation.getText().isEmpty()){
+                        showAlert(Alert.AlertType.ERROR, owner, "Form Erro", "Enter confirmation password as well");
+                        return;
+                    }
+
+                    if(false==password_input.getText().equals(password_confirmation.getText())){
+                        System.out.println("Passwords do not match!");
+                        showAlert(Alert.AlertType.ERROR, owner, "Form Error", "Passwords do not match!");
+                        password_input.clear();
+                        password_confirmation.clear();
+                        return;
+                    }
                     String np = password_input.getText();
                     Insert = connection.prepareStatement("UPDATE users SET Kennwort=? WHERE id=?");
                     Insert.setString(1, np);

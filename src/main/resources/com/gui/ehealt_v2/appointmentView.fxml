@@ -6,16 +6,38 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
 <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="906.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gui.ehealt_v2.AppointmentViewController">
    <children>
       <AnchorPane prefHeight="544.0" prefWidth="900.0" style="-fx-background-color: #83A1CD;">
          <children>
-            <Button fx:id="goBack" layoutX="1.0" layoutY="6.0" mnemonicParsing="false" onAction="#switchToMainPage" text="Back" />
-            <Button fx:id="refreshButton" layoutX="14.0" layoutY="378.0" mnemonicParsing="false" onAction="#setAppointmentList" prefHeight="25.0" prefWidth="124.0" text="Referesh" />
-            <Button fx:id="detailsButton" layoutX="14.0" layoutY="410.0" mnemonicParsing="false" onAction="#onDetailsButtonClick" prefHeight="25.0" prefWidth="124.0" text="Details" />
-            <Button fx:id="cancelAppointmetnButton" layoutX="14.0" layoutY="473.0" mnemonicParsing="false" onAction="#onCancelAppointmentButtonClick" prefHeight="25.0" prefWidth="124.0" text="Cancel Appointment" />
-            <Button fx:id="printAppointmentButton" layoutX="14.0" layoutY="505.0" mnemonicParsing="false" text="&quot;Print Appointment&quot;" />
+            <Button fx:id="refreshButton" layoutX="14.0" layoutY="378.0" mnemonicParsing="false" onAction="#setAppointmentList" prefHeight="25.0" prefWidth="124.0" style="-fx-background-color: #4b5e62;" text="Refresh" textFill="#f5f5f5">
+               <font>
+                  <Font name="Bitstream Vera Sans Mono Bold" size="13.0" />
+               </font></Button>
+            <Button fx:id="detailsButton" layoutX="14.0" layoutY="410.0" mnemonicParsing="false" onAction="#onDetailsButtonClick" prefHeight="25.0" prefWidth="124.0" style="-fx-background-color: #4b5e62;" text="Details" textFill="WHITE">
+               <font>
+                  <Font name="Bitstream Vera Sans Mono Bold" size="13.0" />
+               </font></Button>
+            <Button fx:id="cancelAppointmetnButton" layoutX="14.0" layoutY="473.0" mnemonicParsing="false" onAction="#onCancelAppointmentButtonClick" prefHeight="25.0" prefWidth="124.0" style="-fx-background-color: #4b5e62;" text="Cancel" textFill="WHITE">
+               <font>
+                  <Font name="Bitstream Vera Sans Mono Bold" size="12.0" />
+               </font></Button>
+            <Button fx:id="updateAppointmentButton" layoutX="14.0" layoutY="441.0" mnemonicParsing="false" onAction="#onUpdateAppointmentButtonClick" prefHeight="25.0" prefWidth="124.0" style="-fx-background-color: #4b5e62;" text="Change Time" textFill="WHITE">
+               <font>
+                  <Font name="Bitstream Vera Sans Mono Bold" size="13.0" />
+               </font></Button>
+            <AnchorPane layoutX="-2.0" layoutY="-7.0" prefHeight="67.0" prefWidth="906.0" style="-fx-background-color: #657478;">
+               <children>
+                  <Button fx:id="goBack" layoutX="8.0" layoutY="12.0" mnemonicParsing="false" onAction="#switchToMainPage" style="-fx-background-color: #4b5e62;" text="Back" textFill="WHITE">
+                     <font>
+                        <Font name="Bitstream Vera Sans Mono Bold" size="12.0" />
+                     </font>
+                  </Button>
+                  <ComboBox fx:id="TimeComboBox" layoutX="70.0" layoutY="23.0" onAction="#getAppointmentsInTimeRange" prefHeight="25.0" prefWidth="78.0" promptText="Time" style="-fx-background-color: #e6e6e6;" />
+               </children>
+            </AnchorPane>
             <TableView fx:id="appointment_table" layoutX="149.0" layoutY="15.0" prefHeight="529.0" prefWidth="745.0">
               <columns>
                 <TableColumn fx:id="firstname_col" prefWidth="90.0" text="FirstName" />
@@ -26,8 +48,6 @@
                   <TableColumn fx:id="note_col" prefWidth="379.0" text="Note" />
               </columns>
             </TableView>
-            <Button fx:id="updateAppointmentButton" layoutX="14.0" layoutY="441.0" mnemonicParsing="false" onAction="#onUpdateAppointmentButtonClick" prefHeight="25.0" prefWidth="124.0" text="Change Time" />
-            <ComboBox fx:id="TimeComboBox" layoutX="65.0" layoutY="14.0" onAction="#getAppointmentsInTimeRange" prefHeight="25.0" prefWidth="78.0" promptText="Time" />
          </children>
       </AnchorPane>
    </children>

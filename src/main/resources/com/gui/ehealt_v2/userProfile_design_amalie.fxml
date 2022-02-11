@@ -1,11 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -79,10 +73,14 @@
                         <Font name="Bitstream Vera Sans Mono Bold" size="20.0" />
                     </font>
                 </Label>
+            <Button fx:id="back_button" layoutX="357.0" layoutY="14.0" mnemonicParsing="false" onAction="#returnToMain" style="-fx-background-color: #728e94;" text="Back" textFill="WHITE">
+               <font>
+                  <Font name="Microsoft Sans Serif" size="14.0" />
+               </font>
+            </Button>
             </children>
         </AnchorPane>
         <AnchorPane layoutX="-3.0" layoutY="98.0" prefHeight="2.0" prefWidth="427.0" style="-fx-background-color: #FFFFFF;" />
         <AnchorPane layoutX="-2.0" layoutY="191.0" prefHeight="4.0" prefWidth="431.0" style="-fx-background-color: #4b5e62;" />
     </children>
 </AnchorPane>
-
