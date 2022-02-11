@@ -223,6 +223,17 @@ public class SceneController {
         stage.show();
 
     }
+
+    public void switchToAbout(MenuBar bar) throws IOException{
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("About.fxml"));
+        Parent root=loader.load();
+        Scene scene = new Scene(root);
+        Stage stage = new Stage();
+        stage.setScene(scene);
+        stage.setTitle("About DurtleNet");
+        stage.show();
+
+    }
     public void switchToEditUser(ActionEvent event) throws IOException{
         root = FXMLLoader.load(getClass().getResource("editUser_design.fxml"));
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();

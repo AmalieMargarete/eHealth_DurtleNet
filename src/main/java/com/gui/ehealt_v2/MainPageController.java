@@ -86,6 +86,11 @@ public class MainPageController {
         controller.switchToUserProfile(myMenuBar);
     }
 
+    @FXML
+    protected void onViewAbout(ActionEvent event) throws IOException{
+        controller.switchToAbout(myMenuBar);
+    }
+
     /**
      * Method that prints the health information into a PDF, by using the user from the user holder
      * and accessing his health info from the database
