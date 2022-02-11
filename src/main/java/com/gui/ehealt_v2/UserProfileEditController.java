@@ -137,6 +137,9 @@ public class UserProfileEditController {
                 }
 
                 /*if (!(birthday_input.getValue()==null)) {
+                    if(birthday_input.getValue().isAfter(LocalDate.now())){
+                        System.out.println("Error bday ");
+                    }
                     Date bd=Date.valueOf(birthday_input.getValue());
                     Insert = connection.prepareStatement("UPDATE users SET BirthDate=? WHERE id=?");
                     Insert.setDate(1, bd);

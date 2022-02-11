@@ -93,11 +93,6 @@ public class RegistrationController {
             showAlert(Alert.AlertType.ERROR, owner, "Form Error!", "Registration fields not complete yet");
             return;
         }
-        // check if date is not in the future, and the age should be over ... // TODO: change minusYears to minimum age of user
-        if(birthday.getValue().isAfter(LocalDate.now().minusYears(0))){
-            showAlert(Alert.AlertType.ERROR, owner, "Form Error!", "The selected date is in the past!");
-            return;
-        }
 
         String fn=firstname_textfield.getText();
         String ln=lastname_textfield.getText();
