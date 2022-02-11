@@ -8,7 +8,7 @@ module com.gui.ehealt {
     // ... don't work in maven
     // requires sendgrid.java;
     // requires java.http.client;
-    requires javax.mail.api;
+    // requires javax.mail.api;
 
     // PDF
     requires itextpdf;
@@ -25,6 +25,7 @@ module com.gui.ehealt {
     requires org.json;
     requires java.desktop;
     requires java.xml.bind;
+    requires java.mail;
 
     // to access Appointment in AppointmentView via setCellValueFactory
     opens com.gui.ehealt_v2 to javafx.fxml;

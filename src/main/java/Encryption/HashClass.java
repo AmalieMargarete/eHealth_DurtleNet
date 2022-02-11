@@ -4,6 +4,7 @@ import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import javax.xml.bind.DatatypeConverter;
 
+// Java Doc: https://docs.oracle.com/javase/9/security/java-security-overview1.htm#JSSEC-GUID-2EF91196-D468-4D0F-8FDC-DA2BEA165D10
 /**
  * Class is used to hold encryption functions.
  * @author Viktor Benini; StudentID: 1298976

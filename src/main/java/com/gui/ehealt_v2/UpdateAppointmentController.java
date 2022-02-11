@@ -41,10 +41,14 @@ public class UpdateAppointmentController {
     private Appointment appointment;
 
     /**
-     * Update the appointment in the DB, by the given values LocalDate and Time
+     * Update the appointment in the DB, by the given values LocalDate and Time as String
      * @throws SQLException
      */
     public void onOkButtonClick() throws SQLException {
+
+        if(datePicker.getValue().isBefore(LocalDate.now())){
+            showAlert(Alert.AlertType.ERROR, okButton.getScene().getWindow(), "Form Error!", "The picked date is in the past");
+        }
 
         // shows error if date is already taken
         //-----------------------------------------------------------------------------------------------------------------------------------
@@ -76,8 +80,8 @@ public class UpdateAppointmentController {
          try {
              connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/ehealth_db", "ehealth", "hells");
              System.out.println("Successful DB connection");
-             PreparedStatement preparedStatement = connection.prepareStatement("update appointments set appointmentDate = ? , appointmentTime = ? where id = ?");
-             preparedStatement.setDate(1, Date.valueOf(LocalDate.now())); // TODO: Test date need to be set by date picker
+             PreparedStatement preparedStatement = connection.prepareStatement("UPDATE appointments SET appointmentDate = ? , appointmentTime = ? WHERE id = ?");
+             preparedStatement.setDate(1, Date.valueOf(datePicker.getValue())); // TODO: Test date need to be set by date picker
              preparedStatement.setString(2, timeComboBox.getSelectionModel().getSelectedItem());
              preparedStatement.setInt(3, appointment.getId());
 

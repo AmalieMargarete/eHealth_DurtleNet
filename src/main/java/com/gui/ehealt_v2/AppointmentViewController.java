@@ -297,6 +297,7 @@ public class AppointmentViewController {
     @FXML
     public void onUpdateAppointmentButtonClick() throws IOException, SQLException {
         Appointment appointment = appointment_table.getSelectionModel().getSelectedItem();
+        System.out.println("Update -> appointment id: " + appointment.getId());
         if(appointment == null){
             return;
         }

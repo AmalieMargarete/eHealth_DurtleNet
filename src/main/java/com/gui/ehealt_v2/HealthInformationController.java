@@ -94,6 +94,7 @@ public class HealthInformationController {
                 connection.close();
 
 
+                // store the information as pdf by calling the "store" methode defined in MainPageController
                 MainPageController mainPageController = new MainPageController();
                 mainPageController.onPrintMenuClick();
 
@@ -162,11 +163,23 @@ public class HealthInformationController {
         stage.show();
     }
 
+    /**
+     * Method to switch back to the main page after pressing the back button.
+     * Method calls objects, method of SceneController to switch scenes
+     * @param event
+     * @throws IOException
+     */
     @FXML
     public void switchToMainPage(ActionEvent event) throws IOException {
         controller.switchToMainPage(event);
     }
 
+    /**
+     * Method that sets the information of the user to the Scene. So the user sees his personal information
+     * that are added to the HealthInformation and can confirm that they are correct
+     * @param user
+     * @throws FileNotFoundException
+     */
     public void setUserInfo(User user) throws FileNotFoundException {
         nameLabel.setText(user.getFirstname() + " " + user.getLastName() + "\n" +
                 user.getEmail() + "\n" +
