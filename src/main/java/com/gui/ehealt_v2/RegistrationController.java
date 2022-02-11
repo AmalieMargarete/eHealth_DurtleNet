@@ -67,12 +67,12 @@ public class RegistrationController {
     @FXML
     private TextField new_password_textfield;
     @FXML
-            private TextField confirm_password_textfield;
+    private TextField confirm_password_textfield;
 
-    private String [] insurancetype={"Public", "Private"};
+    private final String [] insurancetype={"Public", "Private"};
 
     public void setAll(){
-        insurance_type= new ComboBox(FXCollections.observableArrayList(insurancetype));
+        insurance_type.setItems(FXCollections.observableArrayList(insurancetype));   // change to .getItmes().add()
     }
 
     public void registration(ActionEvent event) throws Exception{
