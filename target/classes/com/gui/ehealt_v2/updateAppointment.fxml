@@ -9,10 +9,10 @@
 
 <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="298.0" prefWidth="268.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gui.ehealt_v2.UpdateAppointmentController">
    <children>
-      <AnchorPane prefHeight="301.0" prefWidth="268.0">
+      <AnchorPane prefHeight="301.0" prefWidth="268.0" style="-fx-background-color: #83A1CD;">
          <children>
-            <Button fx:id="okButton" layoutX="222.0" layoutY="259.0" mnemonicParsing="false" onAction="#onOkButtonClick" text="Ok" />
-            <Button layoutX="142.0" layoutY="259.0" mnemonicParsing="false" text="Cancel" />
+            <Button fx:id="okButton" layoutX="222.0" layoutY="259.0" mnemonicParsing="false" onAction="#onOkButtonClick" text="Ok" style="-fx-background-color: #4b5e62;" textFill="WHITE" />
+            <Button layoutX="142.0" layoutY="259.0" mnemonicParsing="false" text="Cancel" style="-fx-background-color: #4b5e62;" textFill="white" />
             <DatePicker fx:id="datePicker" layoutX="47.0" layoutY="87.0" />
             <Label layoutX="47.0" layoutY="70.0" text="Select new date" />
             <Label layoutX="47.0" layoutY="132.0" text="Select new Time (HH:mm)" />
