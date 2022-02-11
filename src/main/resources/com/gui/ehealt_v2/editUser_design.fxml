@@ -50,7 +50,7 @@
          <font>
             <Font name="Microsoft Sans Serif" size="15.0" />
          </font></TextField>
-      <TextField fx:id="password_confirmation" layoutX="254.0" layoutY="262.0" prefHeight="33.0" prefWidth="141.0" promptText="Confirm Password">
+      <TextField fx:id="password_confirmation" layoutX="252.0" layoutY="262.0" prefHeight="33.0" prefWidth="141.0" promptText="Confirm Password">
          <font>
             <Font name="Microsoft Sans Serif" size="15.0" />
          </font></TextField>

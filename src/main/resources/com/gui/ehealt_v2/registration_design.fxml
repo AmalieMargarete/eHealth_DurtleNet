@@ -51,7 +51,7 @@
          <font>
             <Font size="14.0" />
          </font></TextField>
-      <DatePicker fx:id="birthday" layoutX="105.0" layoutY="187.0" prefHeight="25.0" prefWidth="89.0" promptText="Birthday" style="-fx-background-color: d2e1ee;" />
+      <DatePicker fx:id="birthday_input" layoutX="105.0" layoutY="187.0" prefHeight="25.0" prefWidth="89.0" promptText="Birthday" style="-fx-background-color: d2e1ee;" />
       <ComboBox layoutX="290.0" layoutY="223.0" opacity="0.66" prefHeight="25.0" prefWidth="81.0" promptText="Type" style="-fx-background-color: d2e1ee;" />
       <ImageView fx:id="durtleImageView" fitHeight="249.0" fitWidth="196.0" layoutX="381.0" layoutY="54.0" pickOnBounds="true" preserveRatio="true" style="bac: #769cbc;" />
       <TextField fx:id="confirm_password_textfield" layoutX="284.0" layoutY="307.0" promptText="Confirm Password" style="-fx-background-color: d2e1ee;">
