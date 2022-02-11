@@ -80,7 +80,7 @@ public class MainPageController {
 
 
     @FXML
-    protected void onEditHealthInfoMenu(ActionEvent event) throws IOException {
+    protected void onEditHealthInfoMenu(ActionEvent event) throws IOException, SQLException {
         controller.switchToEditHealthInfoController(myMenuBar);
     }
 
