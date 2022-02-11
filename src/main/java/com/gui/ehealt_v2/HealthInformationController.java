@@ -180,7 +180,7 @@ public class HealthInformationController {
      * @param user
      * @throws FileNotFoundException
      */
-    public void setUserInfo(User user) throws FileNotFoundException {
+    public void setUserInfo(User user) throws FileNotFoundException, SQLException {
         nameLabel.setText(user.getFirstname() + " " + user.getLastName() + "\n" +
                 user.getEmail() + "\n" +
                 user.getPhoneNumber());
@@ -204,6 +204,31 @@ public class HealthInformationController {
         }else {
             filePathTextField.setText("C:\\");                  // set default path
         }
+
+        // fill existing healthInformation
+        Connection connection = null;
+        ResultSet resultSet = null;
+        try {
+            connection= DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/ehealth_db", "ehealth", "hells"); //localhost:3306/
+            System.out.println("Successful DB connection");
+            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM healthInfo WHERE userId = ?");
+            preparedStatement.setInt(1, user.getUserId());
+            preparedStatement.executeQuery();
+            resultSet = preparedStatement.getResultSet();
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+
+        while(resultSet.next()){
+            socialSecurityNumberField.setText(resultSet.getString("socialSecurityNumber"));
+            medicalRecordNumberField.setText(resultSet.getString("medicalRecordNumber"));
+            healthIncuranceNumberField.setText(resultSet.getString("HealthInsuranceNumber"));
+            heightField.setText(resultSet.getString("height"));
+            weightField.setText(resultSet.getString("weight"));
+            medicineArea.setText(resultSet.getString("medicineUse"));
+            allergiesArea.setText(resultSet.getString("allergies"));
+        }
+        connection.close();
 
     }
 }

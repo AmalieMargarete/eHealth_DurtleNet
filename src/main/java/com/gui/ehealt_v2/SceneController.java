@@ -193,7 +193,7 @@ public class SceneController {
         stage.show();
     }
 
-   public void switchToEditHealthInfoController(MenuBar bar) throws IOException {
+   public void switchToEditHealthInfoController(MenuBar bar) throws IOException, SQLException {
         UserHolder holder = UserHolder.getInstance();
         User user = holder.getUser();
 
