@@ -39,6 +39,8 @@ public class UserProfileController{
     @FXML
     private Text insurancename_text;
     @FXML
+    private Text type_text;
+    @FXML
     private Button edit_button;
     @FXML
     private Button back_button;
@@ -61,6 +63,7 @@ public class UserProfileController{
         email_text.setText(user.getEmail());
         birthday_text.setText(bd);
         insurancename_text.setText(user.getInsurancename());
+        type_text.setText(user.getInsurancetype());
 
     }
     public void returnToMain(ActionEvent event) throws IOException{

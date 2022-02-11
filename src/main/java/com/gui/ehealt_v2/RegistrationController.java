@@ -72,11 +72,12 @@ public class RegistrationController {
     private final String [] insurancetype={"Public", "Private"};
 
     public void setAll(){
-        insurance_type.setItems(FXCollections.observableArrayList(insurancetype));   // change to .getItmes().add()
+        insurance_type.getItems().addAll("Private", "Public");
     }
 
     public void registration(ActionEvent event) throws Exception{
 
+        insurance_type.getItems().addAll("Private", "Public");
 
         Window owner=registration_button.getScene().getWindow();
         if(firstname_textfield.getText().isEmpty()){
@@ -89,15 +90,15 @@ public class RegistrationController {
             return;
         }
 
-        if(street_textfield.getText().isEmpty() || number_textfield.getText().isEmpty() || zip_textfield.getText().isEmpty() || new_email_textfield.getText().isEmpty() ||new_password_textfield.getText().isEmpty() || insurance_textfield.getText().isEmpty()){
+        if(insurance_type.getValue()==null ||street_textfield.getText().isEmpty() || number_textfield.getText().isEmpty() || zip_textfield.getText().isEmpty() || new_email_textfield.getText().isEmpty() ||new_password_textfield.getText().isEmpty() || insurance_textfield.getText().isEmpty()){
             showAlert(Alert.AlertType.ERROR, owner, "Form Error!", "Registration fields not complete yet");
             return;
         }
         // check if date is not in the future, and the age should be over ... // TODO: change minusYears to minimum age of user
-        if(birthday.getValue().isAfter(LocalDate.now().minusYears(0))){
-            showAlert(Alert.AlertType.ERROR, owner, "Form Error!", "The selected date is in the past!");
-            return;
-        }
+       //if(birthday.getValue().isAfter(LocalDate.now().minusYears(0))){
+        //    showAlert(Alert.AlertType.ERROR, owner, "Form Error!", "The selected date is in the past!");
+        //    return;
+        //}
 
         String fn=firstname_textfield.getText();
         String ln=lastname_textfield.getText();
@@ -105,7 +106,8 @@ public class RegistrationController {
         String hn=number_textfield.getText();
         String zi=zip_textfield.getText();
         String to=town_textfield.getText();
-        Date bd=Date.valueOf(birthday.getValue());
+        //Date bd=Date.valueOf(birthday.getValue());
+        String type=(String) insurance_type.getValue();
         String in=insurance_textfield.getText();
         String em=new_email_textfield.getText();
         String npw=new_password_textfield.getText();
@@ -132,7 +134,8 @@ public class RegistrationController {
             DoesUserExist.setString(1, em);
             resultSet=DoesUserExist.executeQuery();  //never forget executeQuery because otherwise everything does not work
             System.out.println("Check if account exists");
-
+            String actualtype = null;
+            
             if(resultSet.isBeforeFirst()){
                 System.out.println("User already exists");  //wouldn't this be a security thing
                 showAlert(Alert.AlertType.ERROR, owner, "Form Error", "Unable to register, user already exists");
@@ -147,28 +150,38 @@ public class RegistrationController {
                 return;
             }
 
-            if(bd.after(Date.valueOf(now))){
+            if(true==type.equals("Private")){
+                actualtype="Private";
+                System.out.println("Private");
+            }
+
+            if(true==type.equals("Public")){
+                actualtype="Public";
+            }
+
+            /*if(bd.after(Date.valueOf(now))){
                 System.out.println("Birthday in future");
                 showAlert(Alert.AlertType.ERROR, owner, "Form Error", "We don´t accept travelers from the future as clients just yet");
                 birthday.setValue(null);
                 return;
-            }
+            } */
 
             else {
                 transformAddress(str_nospaces, hn, zi, to_nospaces);  //Transforms string formats to ints when necessary and passes them to parsing method, final coordinates latitude and longtitude are saved in object GeoCoordinates
-                Insert = connection.prepareStatement("INSERT INTO users (FirstName, LastName, Street, HouseNumber, ZIP, Town, BirthDate, Email, Kennwort, InsuranceName, Latitude, Longitude) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+                Insert = connection.prepareStatement("INSERT INTO users (FirstName, LastName, Street, HouseNumber, ZIP, Town, BirthDate, Email, Kennwort, InsuranceName, InsuranceType, Latitude, Longitude) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
                 Insert.setString(1, fn);
                 Insert.setString(2, ln);
                 Insert.setString(3, str);
                 Insert.setString(4, hn);
                 Insert.setString(5, zi);
                 Insert.setString(6, to);
-                Insert.setDate(7, bd);
+                Insert.setDate(7, Date.valueOf(now));
                 Insert.setString(8, em);
                 Insert.setString(9, hash.getHash(npw));
                 Insert.setString(10, in);
-                Insert.setFloat(11, latlongcoord.getLatitude());
-                Insert.setFloat(12, latlongcoord.getLongitude());
+                Insert.setString(11, actualtype);
+                Insert.setFloat(12, latlongcoord.getLatitude());
+                Insert.setFloat(13, latlongcoord.getLongitude());
                 Insert.executeUpdate();
 
 

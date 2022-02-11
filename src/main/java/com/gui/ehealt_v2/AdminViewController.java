@@ -130,7 +130,7 @@ public class AdminViewController {
             while (resultSet.next()) {
                 testUserObservableList.add(new TestUser(resultSet.getInt("id"), resultSet.getString("FirstName"), resultSet.getString("LastName"), resultSet.getString("Street"),
                         resultSet.getString("HouseNumber"), resultSet.getString("ZIP"), resultSet.getString("Town"),
-                        resultSet.getString("Email"), resultSet.getDate("BirthDate"), resultSet.getString("InsuranceName"), resultSet.getInt("IsAdmin")));
+                        resultSet.getString("Email"), resultSet.getDate("BirthDate"), resultSet.getString("InsuranceName"), resultSet.getString("InsuranceType"), resultSet.getInt("IsAdmin")));
             }
 
 
