@@ -69,7 +69,7 @@ public class RegistrationController {
     @FXML
             private TextField confirm_password_textfield;
 
-    String [] insurancetype={"Public", "Private"};
+    private String [] insurancetype={"Public", "Private"};
 
     public void setAll(){
         insurance_type.setItems(FXCollections.observableArrayList(insurancetype));
@@ -91,6 +91,11 @@ public class RegistrationController {
 
         if(street_textfield.getText().isEmpty() || number_textfield.getText().isEmpty() || zip_textfield.getText().isEmpty() || new_email_textfield.getText().isEmpty() ||new_password_textfield.getText().isEmpty() || insurance_textfield.getText().isEmpty()){
             showAlert(Alert.AlertType.ERROR, owner, "Form Error!", "Registration fields not complete yet");
+            return;
+        }
+        // check if date is not in the future, and the age should be over ... // TODO: change minusYears to minimum age of user
+        if(birthday.getValue().isAfter(LocalDate.now().minusYears(0))){
+            showAlert(Alert.AlertType.ERROR, owner, "Form Error!", "The selected date is in the past!");
             return;
         }
 

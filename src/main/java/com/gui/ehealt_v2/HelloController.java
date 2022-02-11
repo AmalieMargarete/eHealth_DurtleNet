@@ -64,7 +64,7 @@ public class HelloController {
         }
 
         String email=email_textfield.getText();
-        String password=hash.getHash(password_textfield.getText());
+        String password=hash.getHash(password_textfield.getText());     // encryption
 
         Connection connection = null;
         PreparedStatement preparedStatement=null;

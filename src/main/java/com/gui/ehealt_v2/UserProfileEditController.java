@@ -1,5 +1,6 @@
 package com.gui.ehealt_v2;
 
+import Encryption.HashClass;
 import UserManagement.User;
 import UserManagement.UserHolder;
 import javafx.event.ActionEvent;
@@ -146,7 +147,7 @@ public class UserProfileEditController {
                 //can an admin change a password?
                 if (!password_input.getText().isEmpty()) {
                     if(password_confirmation.getText().isEmpty()){
-                        showAlert(Alert.AlertType.ERROR, owner, "Form Erro", "Enter confirmation password as well");
+                        showAlert(Alert.AlertType.ERROR, owner, "Form Error", "Enter confirmation password as well");
                         return;
                     }
 
@@ -157,7 +158,8 @@ public class UserProfileEditController {
                         password_confirmation.clear();
                         return;
                     }
-                    String np = password_input.getText();
+                    String np = HashClass.getHash(password_input.getText());    // Hashes password
+                    System.out.println(np);
                     Insert = connection.prepareStatement("UPDATE users SET Kennwort=? WHERE id=?");
                     Insert.setString(1, np);
                     Insert.setInt(2, userid);
@@ -172,6 +174,7 @@ public class UserProfileEditController {
                     Insert.executeUpdate();
                 }
 
+                connection.close();
                 controller.switchToMainPage(event);
 
             } catch (SQLException ex) {

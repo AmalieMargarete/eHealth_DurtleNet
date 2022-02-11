@@ -217,6 +217,11 @@ public class MakeAppointmentController {
             showAlert(Alert.AlertType.ERROR, owner, "Form Error!", "Not all fields are filled!");
             return;
         }
+        // check if date is in the future
+        if(datePicker.getValue().isBefore(LocalDate.now())){
+            showAlert(Alert.AlertType.ERROR, owner, "Form Error!", "The selected date is in the past!");
+            return;
+        }
 
         // USerHolder Test
         // userdata can be easily requested by the patientHolder
