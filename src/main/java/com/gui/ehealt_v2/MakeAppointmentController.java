@@ -1,6 +1,8 @@
 package com.gui.ehealt_v2;
 
+import Appointment.Appointment;
 import Mail.MailUtil;
+import Scheduler.Reminder;
 import UserManagement.Doctor;
 import UserManagement.DoctorHolder;
 import UserManagement.User;
@@ -218,7 +220,7 @@ public class MakeAppointmentController {
      * @throws SQLException
      */
     @FXML
-    protected void createAppointmentOnClick(ActionEvent event) throws SQLException, IOException {
+    protected void createAppointmentOnClick(ActionEvent event) throws SQLException, IOException, MessagingException {
         Window owner=createAppointmentButton.getScene().getWindow();
         // check if fields are empty
         if(doctorSearch.equals("") || specializationField.equals("") || datePicker.getValue() == null || timeComboBox.getSelectionModel() == null){
@@ -285,10 +287,10 @@ public class MakeAppointmentController {
             System.out.println("Successful DB connection");
 
             //put method here to calculate time stamp date of appointment, appointment saved as timestamp and parsed to this, Amalie - a lot of different options here because I was trying different approaches
-            LocalDateTime appointmentTime= LocalDateTime.of(LocalDate.parse((datePicker.getValue()).toString()), LocalTime.parse(timeComboBox.getSelectionModel().getSelectedItem()));
-            Timestamp timestamp =Timestamp.valueOf(appointmentTime);
-            System.out.println("Timestamp of LocalDateTime appointment is:"+timestamp);  //testing values against each other
-            System.out.println("LocalDateTime appointment is:"+appointmentTime);            //testing values against each other
+            LocalDateTime appointmentTime = LocalDateTime.of(LocalDate.parse((datePicker.getValue()).toString()), LocalTime.parse(timeComboBox.getSelectionModel().getSelectedItem()));
+            Timestamp timestamp = Timestamp.valueOf(appointmentTime);
+            System.out.println("Timestamp of LocalDateTime appointment is:" + timestamp);  //testing values against each other
+            System.out.println("LocalDateTime appointment is:" + appointmentTime);            //testing values against each other
             //the above is needed because I want to save a timestamp in the DB to work with it for reminders and time frames
 
 
@@ -304,7 +306,7 @@ public class MakeAppointmentController {
             */
 
             // Insert appointment into database
-            System.out.println("Appointment as a time stamp is" +appointmentTime);
+            System.out.println("Appointment as a time stamp is" + appointmentTime);
             PreparedStatement Insert = connection.prepareStatement("INSERT INTO appointments (doctorId, userId, appointmentDate, appointmentTime,  note, realTimeAppointment) VALUES (?, ?, ?, ?, ?, ?)");
             Insert.setInt(1, doctorId);
             Insert.setInt(2, user.getUserId());
@@ -325,7 +327,7 @@ public class MakeAppointmentController {
             PreparedStatement getLastId = connection.prepareStatement("SELECT id FROM appointments");
             ResultSet lastIdSet = getLastId.executeQuery();
 
-            while (lastIdSet.next()){
+            while (lastIdSet.next()) {
                 lastId = lastIdSet.getInt("id");
             }
 
@@ -339,8 +341,7 @@ public class MakeAppointmentController {
             reminderInsert.executeUpdate();
 
 
-            /*
-            // Might be better in the reminder job
+      /*
             //---------------------------------------------------------------------------------------------------------------------------------------------------------
             //Here I got my grandfather news so I stopped but my plan was to insert this into my reminder table and then work from there
             PreparedStatement ReminderInsert=connection.prepareStatement("INSERT INTO reminder(AppointmentID, AppointmentTime, Reminder Time) VALUES (?, ?, ?)");
@@ -369,15 +370,58 @@ public class MakeAppointmentController {
             System.out.println("Connection failed in MakeAppointment or potentially email sending went wrong");
         }
         //-------------------------------------------------------------------------------------------------------------------------------------------
-         */
-
-         // new catch because email will be handled elsewhere
-        }catch (SQLException e){
+        */
+        }catch(SQLException e){
             e.printStackTrace();
         }
+
+        // sends the mail to the user
+        sendAppointmentMail();
+
         connection.close();
 
         controller.switchToMainPage(event);
+    }
+
+    /**
+     * send the appointmentMail to the user after finishing the created appointment
+     */
+    public void sendAppointmentMail() throws MessagingException {
+        Appointment currentAppointment = null;
+
+        Connection connection = null;
+        try{
+            connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/ehealth_db", "ehealth", db_password); //localhost:3306/
+            System.out.println("Successful DB connection");
+            // inner join with appointments, doctors and users to create all appointments in a list
+            PreparedStatement Insert = connection.prepareStatement("SELECT * FROM (((appointments\n" +
+                    "INNER JOIN doctors ON doctors.id = appointments.doctorId)\n" +
+                    "INNER JOIN users ON users.id = appointments.userId)" +
+                    "INNER JOIN reminder ON appointments.id = reminder.AppointmentID);");
+            ResultSet resultSet = Insert.executeQuery();
+            System.out.println("Insert completed");
+
+            // selects the last appointment
+            while (resultSet.next()){
+               currentAppointment = new Appointment(
+                                resultSet.getInt("appointments.id"), resultSet.getDate("appointmentDate").toLocalDate(), resultSet.getString("appointmentTime"),
+                                new User(resultSet.getInt("userId"), resultSet.getString("users.FirstName"), resultSet.getString("users.LastName"),
+                                        resultSet.getString("users.Street"), resultSet.getString("users.HouseNumber"), resultSet.getString("users.ZIP"), resultSet.getString("users.Town"),
+                                        resultSet.getString("users.Email"), resultSet.getDate("users.BirthDate"), resultSet.getString("users.CreationDate"),
+                                        resultSet.getString("users.InsuranceName"), resultSet.getString("users.InsuranceType"), " "),
+                                new Doctor(resultSet.getInt("doctorId"), resultSet.getString("doctors.FirstName"), resultSet.getString("doctors.LastName"),
+                                        resultSet.getString("doctors.Street"),resultSet.getString("doctors.HouseNumber"), resultSet.getString("doctors.zip"), resultSet.getString("doctors.Town"),
+                                        resultSet.getString("doctors.Email"), resultSet.getString("doctors.Telephone"), resultSet.getString("doctors.Specialization"),
+                                        "00-24"),
+                                resultSet.getString("note"),
+                                resultSet.getInt("reminder"));
+            }
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+
+        MailUtil.sendMailReminder(currentAppointment.getUser().getEmail(), currentAppointment);
+
     }
 
     // Function that gets doctors in radius and clears list (Amalie), the magic here happens in SQL where I query with the spherical law of cosines
