@@ -56,7 +56,7 @@ public class RegistrationController {
     @FXML
     private TextField town_textfield;
     @FXML
-    private DatePicker birthday;
+    private DatePicker birthday_input;
     @FXML
     private TextField insurance_textfield;
     @FXML
@@ -68,12 +68,6 @@ public class RegistrationController {
     private TextField new_password_textfield;
     @FXML
     private TextField confirm_password_textfield;
-
-    private final String [] insurancetype={"Public", "Private"};
-
-    public void setAll(){
-        insurance_type.getItems().addAll("Private", "Public");
-    }
 
     public void registration(ActionEvent event) throws Exception{
 
@@ -94,11 +88,6 @@ public class RegistrationController {
             showAlert(Alert.AlertType.ERROR, owner, "Form Error!", "Registration fields not complete yet");
             return;
         }
-        // check if date is not in the future, and the age should be over ... // TODO: change minusYears to minimum age of user
-       //if(birthday.getValue().isAfter(LocalDate.now().minusYears(0))){
-        //    showAlert(Alert.AlertType.ERROR, owner, "Form Error!", "The selected date is in the past!");
-        //    return;
-        //}
 
         String fn=firstname_textfield.getText();
         String ln=lastname_textfield.getText();
@@ -106,7 +95,7 @@ public class RegistrationController {
         String hn=number_textfield.getText();
         String zi=zip_textfield.getText();
         String to=town_textfield.getText();
-        //Date bd=Date.valueOf(birthday.getValue());
+        Date bd=Date.valueOf(birthday_input.getValue());
         String type=(String) insurance_type.getValue();
         String in=insurance_textfield.getText();
         String em=new_email_textfield.getText();
@@ -159,12 +148,12 @@ public class RegistrationController {
                 actualtype="Public";
             }
 
-            /*if(bd.after(Date.valueOf(now))){
+            if(bd.after(Date.valueOf(now))){
                 System.out.println("Birthday in future");
                 showAlert(Alert.AlertType.ERROR, owner, "Form Error", "We don´t accept travelers from the future as clients just yet");
-                birthday.setValue(null);
+                birthday_input.setValue(null);
                 return;
-            } */
+            }
 
             else {
                 transformAddress(str_nospaces, hn, zi, to_nospaces);  //Transforms string formats to ints when necessary and passes them to parsing method, final coordinates latitude and longtitude are saved in object GeoCoordinates
@@ -175,7 +164,7 @@ public class RegistrationController {
                 Insert.setString(4, hn);
                 Insert.setString(5, zi);
                 Insert.setString(6, to);
-                Insert.setDate(7, Date.valueOf(now));
+                Insert.setDate(7, bd);
                 Insert.setString(8, em);
                 Insert.setString(9, hash.getHash(npw));
                 Insert.setString(10, in);
