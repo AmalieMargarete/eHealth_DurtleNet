@@ -77,6 +77,14 @@ public class MakeAppointmentController {
     private ComboBox<String> timeComboBox;
     @FXML
     private ComboBox<Integer> radiusComboBox;
+    @FXML
+    private CheckBox week_check;
+    @FXML
+    private CheckBox threedays_check;
+    @FXML
+    private CheckBox oneday_check;
+    @FXML
+    private CheckBox onehour_check;
 
 
     /**
@@ -226,6 +234,11 @@ public class MakeAppointmentController {
             return;
         }
 
+        //Read the check boxes and determine which ones are selected (true if selected)
+        boolean week_reminder=week_check.isSelected();
+        boolean threedays_reminder=threedays_check.isSelected();
+        boolean oneday_reminder=oneday_check.isSelected();
+
         // USerHolder Test
         // userdata can be easily requested by the patientHolder
         UserHolder userHolder = UserHolder.getInstance();
@@ -276,6 +289,14 @@ public class MakeAppointmentController {
             System.out.println("LocalDateTime appointment is:"+appointment);            //testing values against each other
             //the above is needed because I want to save a timestamp in the DB to work with it for reminders and time frames
 
+            //determines which time (down to exact hour) is 7 days apart from appointment time and saves it as timestamp (which is one to save transferable to DB)
+            if(week_reminder==true){
+                System.out.println("Reminder one week ahead of appointment is selected.");
+                LocalDateTime ra=appointment.minusDays(7);
+                Timestamp timestampweek=Timestamp.valueOf(ra);
+                System.out.println("LocalDateTime appointment is:"+appointment +" A reminder will be sent:" +timestampweek);
+            }
+
             System.out.println("Appointment as a time stamp is" +appointment);
             PreparedStatement Insert = connection.prepareStatement("INSERT INTO appointments (doctorId, userId, appointmentDate, appointmentTime,  note, realTimeAppointment) VALUES (?, ?, ?, ?, ?, ?)");
             Insert.setInt(1, doctorId);
@@ -287,6 +308,10 @@ public class MakeAppointmentController {
             Insert.executeUpdate();
 
             System.out.println("Insert completed");
+
+            //Here I got my grandfather news so I stopped but my plan was to insert this into my reminder table and then work from there
+            PreparedStatement ReminderInsert=connection.prepareStatement("INSERT INTO reminder(AppointmentID, AppointmentTime, Reminder Time) VALUES (?, ?, ?)");
+            //ReminderInsert.setInt()
 
             //Amalie: email reminder after appointment is made
             PreparedStatement preparedStatement=connection.prepareStatement("SELECT * FROM doctors WHERE id = ?");

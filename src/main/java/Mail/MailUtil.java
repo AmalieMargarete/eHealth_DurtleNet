@@ -5,8 +5,8 @@ import UserManagement.User;
 import UserManagement.UserHolder;
 import com.itextpdf.text.Document;
 
-import javax.activation.DataHandler;
-import javax.activation.FileDataSource;
+//import javax.activation.DataHandler;
+//import javax.activation.FileDataSource;
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
@@ -129,13 +129,13 @@ public class MailUtil {
         return null;
     }
 
-
+ /*
     /**
      * Method to send email to the doctor, to request the
      * @param recipient
      * @throws MessagingException
      */
-    public static void sendMail(String recipient, Appointment appointment) throws MessagingException {
+    /*public static void sendMail(String recipient, Appointment appointment) throws MessagingException {
         System.out.println("Preparing to send Mail");
         Properties properties = new Properties();
 
@@ -157,7 +157,7 @@ public class MailUtil {
         Message message = prepareMessageDoctorAppointment(session, myAccountEmail, recipient, appointment);
         Transport.send(message);
         System.out.println("Message sent successfully");
-    }
+    } */
 
     /**
      * Method to create a predefined message (email), that is sent to the doctor, when a user created an appointment
@@ -170,7 +170,7 @@ public class MailUtil {
      */
     // TODO: not finished need overwork
     // TODO: sent file is not a pdf!
-    public static Message prepareMessageDoctorAppointment(Session session, String myAccountEmail, String recipient, Appointment appointment){
+    /*public static Message prepareMessageDoctorAppointment(Session session, String myAccountEmail, String recipient, Appointment appointment){
         // Get User information
         UserHolder holder = UserHolder.getInstance();
         User user = holder.getUser();
@@ -207,7 +207,7 @@ public class MailUtil {
         }
 
         return null;
-    }
+    } */
 }
 
 
