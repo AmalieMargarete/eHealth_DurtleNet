@@ -13,6 +13,8 @@ import javafx.stage.Window;
 
 import java.sql.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 /**
  * Class that handles the GUI, to update the selected time of an appointment
@@ -80,10 +82,20 @@ public class UpdateAppointmentController {
          try {
              connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/ehealth_db", "ehealth", "hells");
              System.out.println("Successful DB connection");
-             PreparedStatement preparedStatement = connection.prepareStatement("UPDATE appointments SET appointmentDate = ? , appointmentTime = ? WHERE id = ?");
+             //put method here to calculate time stamp date of appointment, appointment saved as timestamp and parsed to this, Amalie - a lot of different options here because I was trying different approaches
+             LocalDateTime appointmentrealtime= LocalDateTime.of(LocalDate.parse((datePicker.getValue()).toString()), LocalTime.parse(timeComboBox.getSelectionModel().getSelectedItem()));
+             Timestamp timestamp =Timestamp.valueOf(appointmentrealtime);
+             System.out.println("Timestamp of LocalDateTime appointment is:"+timestamp);  //testing values against each other
+             System.out.println("LocalDateTime appointment is:"+appointment);            //testing values against each other
+             //the above is needed because I want to save a timestamp in the DB to work with it for reminders and time frames
+
+             PreparedStatement preparedStatement = connection.prepareStatement("UPDATE appointments SET appointmentDate = ? , appointmentTime = ?, realTimeAppointment = ? WHERE id = ?");
              preparedStatement.setDate(1, Date.valueOf(datePicker.getValue())); // TODO: Test date need to be set by date picker
              preparedStatement.setString(2, timeComboBox.getSelectionModel().getSelectedItem());
-             preparedStatement.setInt(3, appointment.getId());
+             preparedStatement.setTimestamp(3, timestamp);
+             preparedStatement.setInt(4, appointment.getId());
+
+
 
              preparedStatement.executeUpdate();
          }catch(SQLException e){

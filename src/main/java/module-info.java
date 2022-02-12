@@ -26,6 +26,7 @@ module com.gui.ehealt {
     requires java.desktop;
     requires java.xml.bind;
     requires java.mail;
+    requires javax.mail.api;
 
     // to access Appointment in AppointmentView via setCellValueFactory
     opens com.gui.ehealt_v2 to javafx.fxml;
