@@ -115,6 +115,7 @@ public class UpdateAppointmentController {
     public void setAll(Appointment appointment){
         timeComboBox.setItems(FXCollections.observableArrayList(timeList));
         this.appointment = appointment;
+
     }
 
     /**

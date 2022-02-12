@@ -1,14 +1,21 @@
 package Scheduler;
 
 import Appointment.Appointment;
+import Mail.MailUtil;
 import UserManagement.Doctor;
 import UserManagement.User;
+import javafx.collections.ObservableArray;
+import javafx.collections.ObservableList;
+import javafx.collections.ObservableListBase;
 import org.quartz.Job;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 
+import javax.mail.MessagingException;
 import java.sql.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 
 /**
@@ -17,8 +24,6 @@ import java.util.ArrayList;
  */
 public class SchedulerJob implements Job {
 
-    public SchedulerJob(){}
-
     /**
      *
      * sends reminder to users that have an appointment
@@ -26,10 +31,23 @@ public class SchedulerJob implements Job {
      * @param context
      * @throws org.quartz.JobExecutionException
      */
+    @Override
     public void execute(JobExecutionContext context) throws JobExecutionException {
         System.out.println("Reminder looks for appointments");
-        LocalDate timeNow = LocalDate.now();
+        LocalDateTime timeNow = LocalDateTime.now().withNano(0);
         ArrayList<Appointment> appointments = new ArrayList<Appointment>();
+        ArrayList<Reminder> reminders = new ArrayList<Reminder>();
+
+        System.out.println(timeNow);
+
+        // reset arraylists
+        appointments.clear();
+        reminders.clear();
+
+        // QUERY OUT OF APPOINTMENT AND REMINDER TABLE
+        // insert the appointment data into an arraylist : appointments
+        // insert the reminder data into an arraylist : reminders
+        //------------------------------------------------------------------------------------------------
 
         // get appointment from DB to look up reminder
         Connection connection = null;
@@ -39,9 +57,10 @@ public class SchedulerJob implements Job {
             System.out.println("Successful DB connection");
 
             // inner join with appointments, doctors and users to create all appointments in a list
-            PreparedStatement Insert = connection.prepareStatement("SELECT * FROM ((appointments\n" +
+            PreparedStatement Insert = connection.prepareStatement("SELECT * FROM (((appointments\n" +
                     "INNER JOIN doctors ON doctors.id = appointments.doctorId)\n" +
-                    "INNER JOIN users ON users.id = appointments.userId);");
+                    "INNER JOIN users ON users.id = appointments.userId)" +
+                    "INNER JOIN reminder ON appointments.id = reminder.AppointmentID);");
             resultSet = Insert.executeQuery();
             System.out.println("Insert completed");
 
@@ -60,21 +79,95 @@ public class SchedulerJob implements Job {
                                 resultSet.getString("note"),
                                 resultSet.getInt("reminder"))
                 );
+                reminders.add(new Reminder(resultSet.getInt("reminder.AppointmentID"), resultSet.getBoolean("reminder.ReminderWeek"),
+                        resultSet.getBoolean("reminder.ReminderThreeDays"),
+                        resultSet.getBoolean("reminder.ReminderOneDay"), resultSet.getBoolean("reminder.ReminderOneHour")));
             }
 
+            connection.close();
         }catch (SQLException e){
             e.printStackTrace();
         }
 
-        // send reminder mails to all users with appointments at certain time
-        for(Appointment appointment : appointments){
-            // MailUtil.sendMail(appointment.getUser().getEmail(), appointment);
-            System.out.println("Appointment: " + appointment.getId() + " was send!");
-            System.out.println(appointment.getUser().getEmail());
+
+        // check if mail has to be sent
+        for (Reminder reminder : reminders){
+            for(Appointment appointment : appointments){
+
+                // check if reminder is set to one hour
+                if(reminder.isOneHour()){
+                    if(appointment.getId() == reminder.getAppointmentId()){
+                        // get the time of the appointment
+                        LocalDateTime dateTime = LocalDateTime.of(appointment.getDate(), LocalTime.parse(appointment.getTime()));
+                        // sends mail if the appointment is one hour ahead
+                        if(dateTime.equals(timeNow.plusHours(1))){
+                            System.out.println("Time is now one hour: " + appointment.getId());
+                            try {
+                                MailUtil.sendMailReminder(appointment.getUser().getEmail(), appointment);
+                                System.out.println("Email was sent!");
+                            } catch (MessagingException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+                }
+
+                // check if reminder is set to one day
+                if(reminder.isOneDay()){
+                    if(appointment.getId() == reminder.getAppointmentId()){
+                        // get the time of the appointment
+                        LocalDateTime dateTime = LocalDateTime.of(appointment.getDate(), LocalTime.parse(appointment.getTime()));
+                        // sends mail if the appointment is one day ahead
+                        if(dateTime.equals(timeNow.plusDays(1))){
+                            System.out.println("Time is now one day: " + appointment.getId());
+                            try {
+                                MailUtil.sendMailReminder(appointment.getUser().getEmail(), appointment);
+                                System.out.println("Email was sent!");
+                            } catch (MessagingException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+                }
+
+                // check if reminder is set to three day
+                if(reminder.isThreeDays()){
+                    if(appointment.getId() == reminder.getAppointmentId()){
+                        // get the time of the appointment
+                        LocalDateTime dateTime = LocalDateTime.of(appointment.getDate(), LocalTime.parse(appointment.getTime()));
+                        // sends mail if the appointment is 3 days ahead
+                        if(dateTime.equals(timeNow.plusDays(3))){
+                            System.out.println("Time is now 3 days: " + appointment.getId());
+                            try {
+                                MailUtil.sendMailReminder(appointment.getUser().getEmail(), appointment);
+                                System.out.println("Email was sent!");
+                            } catch (MessagingException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+                }
+
+                // check if reminder is set to one day
+                if(reminder.isWeek()){
+                    if(appointment.getId() == reminder.getAppointmentId()){
+                        // get the time of the appointment
+                        LocalDateTime dateTime = LocalDateTime.of(appointment.getDate(), LocalTime.parse(appointment.getTime()));
+                        // sends mail if the appointment is 7 days ahead
+                        if(dateTime.equals(timeNow.plusDays(7))){
+                            System.out.println("Time is now one week: " + appointment.getId());
+                            try {
+                                MailUtil.sendMailReminder(appointment.getUser().getEmail(), appointment);
+                                System.out.println("Email was sent!");
+                            } catch (MessagingException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+                }
+            }
         }
 
         // Delete Appointments older than one day!
-
-        System.out.println(timeNow);
     }
 }

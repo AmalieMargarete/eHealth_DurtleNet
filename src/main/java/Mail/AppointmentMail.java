@@ -74,7 +74,7 @@ public class AppointmentMail {
         Doctor doctor = new Doctor();
         Appointment appointment = new Appointment(1, LocalDate.now(), "20:20", user, doctor, "Hallo" , 1);
 
-        MailUtil.sendMail("v.benini99@gmail.com", appointment);
+        // MailUtil.sendMail("v.benini99@gmail.com", appointment);
 
     }
 

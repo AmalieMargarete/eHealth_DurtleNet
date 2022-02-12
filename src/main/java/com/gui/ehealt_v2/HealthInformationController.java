@@ -160,7 +160,7 @@ public class HealthInformationController {
 
         // show the HealthInformation Edit window primary
         Stage stage = (Stage)nameLabel.getScene().getWindow();
-        stage.show();
+        stage.setAlwaysOnTop(true);    // not a perfect fix but stage is in top of mainPage
     }
 
     /**
@@ -171,7 +171,10 @@ public class HealthInformationController {
      */
     @FXML
     public void switchToMainPage(ActionEvent event) throws IOException {
-        controller.switchToMainPage(event);
+        // controller.switchToMainPage(event);
+
+        // mainPage still open need too close current stage
+        controller.closeStage(nameLabel);
     }
 
     /**

@@ -36,7 +36,7 @@ public class MainPageApplication extends Application {
             connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/ehealth_db", "ehealth", "hells");
             System.out.println("Successful DB connection");
             PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM users WHERE ID = ?");
-            preparedStatement.setInt(1, 5);
+            preparedStatement.setInt(1, 8);
             ResultSet resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {

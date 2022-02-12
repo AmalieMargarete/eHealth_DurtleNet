@@ -66,11 +66,18 @@ public class UserProfileController{
         type_text.setText(user.getInsurancetype());
 
     }
+
     public void returnToMain(ActionEvent event) throws IOException{
-        controller.switchToMainPage(event);
+        // MainPage is still open instead of open it again
+        // we just close the UserProfile stage
 
+        // closes current stage and opens MainPage
+        //controller.switchToMainPage(event);
 
+        // closes current stage
+        controller.closeStage(back_button);
     }
+
     public void switchToEditUser(ActionEvent event) throws IOException{
         controller.switchToEditUser(event);
 

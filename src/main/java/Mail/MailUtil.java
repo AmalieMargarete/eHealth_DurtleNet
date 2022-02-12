@@ -129,13 +129,13 @@ public class MailUtil {
         return null;
     }
 
- /*
+
     /**
      * Method to send email to the doctor, to request the
      * @param recipient
      * @throws MessagingException
      */
-    /*public static void sendMail(String recipient, Appointment appointment) throws MessagingException {
+    public static void sendMailReminder(String recipient, Appointment appointment) throws MessagingException {
         System.out.println("Preparing to send Mail");
         Properties properties = new Properties();
 
@@ -154,10 +154,37 @@ public class MailUtil {
             }
         });
 
-        Message message = prepareMessageDoctorAppointment(session, myAccountEmail, recipient, appointment);
+        Message message = prepareMessageReminder(session, myAccountEmail, recipient, appointment);
         Transport.send(message);
         System.out.println("Message sent successfully");
-    } */
+    }
+
+    /**
+     *
+     * @param session
+     * @param myAccountEmail
+     * @param recipient
+     * @param appointment
+     * @return
+     */
+    public static Message prepareMessageReminder(Session session, String myAccountEmail, String recipient, Appointment appointment){
+        try {
+            Message message = new MimeMessage(session);
+            message.setFrom(new InternetAddress(myAccountEmail));
+            message.setRecipient(Message.RecipientType.TO, new InternetAddress(recipient));
+            message.setSubject("Your eHealth appointment");
+            message.setText("Hey there from Durtle and team! You have scheduled an appointment with Dr. " + appointment.getDoctor().getFirstname() + " " + appointment.getDoctor().getLastName() + "\n" +
+                    "Your appointment is on the " + appointment.getDate() + " at: " + appointment.getTime() + "\n\n" +
+                    "Address: \n" + appointment.getDoctor().getStreet() + " " + appointment.getDoctor().getHouseNumber() + "\n" + appointment.getDoctor().getZIP() + " " + appointment.getDoctor().getTown());
+            return message;
+        } catch (Exception e) {
+            Logger.getLogger(MailUtil.class.getName()).log(Level.SEVERE, null, e);
+        }
+
+        return null;
+    }
+
+
 
     /**
      * Method to create a predefined message (email), that is sent to the doctor, when a user created an appointment
@@ -170,8 +197,8 @@ public class MailUtil {
      */
     // TODO: not finished need overwork
     // TODO: sent file is not a pdf!
-    /*public static Message prepareMessageDoctorAppointment(Session session, String myAccountEmail, String recipient, Appointment appointment){
-        // Get User information
+    public static Message prepareMessageDoctorAppointment(Session session, String myAccountEmail, String recipient, Appointment appointment){
+     /*   // Get User information
         UserHolder holder = UserHolder.getInstance();
         User user = holder.getUser();
 
@@ -205,9 +232,9 @@ public class MailUtil {
         } catch (Exception e) {
             Logger.getLogger(MailUtil.class.getName()).log(Level.SEVERE, null, e);
         }
-
+*/
         return null;
-    } */
+    }
 }
 
 

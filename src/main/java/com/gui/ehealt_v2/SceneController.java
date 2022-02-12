@@ -8,9 +8,12 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.MenuBar;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -88,7 +91,8 @@ public class SceneController {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("registration_design.fxml"));
         root=loader.load();
         RegistrationController registrationController = loader.getController();
-        registrationController.setAll();
+        // TODO: setAll() not a method. Intended?
+        // registrationController.setAll();
         registrationController.setImage(new Image(getClass().getResource("Images/Durtle.png").toString())); // set Durtle image
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root);
@@ -242,6 +246,21 @@ public class SceneController {
         stage.setScene(scene);
         stage.setTitle("Editing Profile");
         stage.show();
+    }
+
+    public void closeStage(Button button){
+        stage = (Stage)button.getScene().getWindow();
+        stage.close();
+    }
+
+    public void closeStage(Label label){
+        stage = (Stage)label.getScene().getWindow();
+        stage.close();
+    }
+
+    public void closeStage(Text text){
+        stage = (Stage)text.getScene().getWindow();
+        stage.close();
     }
 
 }

@@ -52,19 +52,19 @@
                <font>
                   <Font name="Bitstream Vera Sans Mono Bold" size="9.0" />
                </font></Label>
-            <CheckBox layoutX="334.0" layoutY="196.0" mnemonicParsing="false" text="1 week">
+            <CheckBox fx:id="week_check" layoutX="334.0" layoutY="196.0" mnemonicParsing="false" text="1 week">
                <font>
                   <Font name="Bitstream Vera Sans Mono Bold" size="10.0" />
                </font></CheckBox>
-            <CheckBox layoutX="398.0" layoutY="196.0" mnemonicParsing="false" text="3 days">
+            <CheckBox fx:id="threedays_check" layoutX="398.0" layoutY="196.0" mnemonicParsing="false" text="3 days">
                <font>
                   <Font name="Bitstream Vera Sans Mono Bold" size="10.0" />
                </font></CheckBox>
-            <CheckBox layoutX="460.0" layoutY="196.0" mnemonicParsing="false" text="1 hour">
+            <CheckBox fx:id="oneday_check" layoutX="460.0" layoutY="196.0" mnemonicParsing="false" text="1 day">
                <font>
                   <Font name="Bitstream Vera Sans Mono Bold" size="10.0" />
                </font></CheckBox>
-            <CheckBox layoutX="528.0" layoutY="196.0" mnemonicParsing="false" text="10 min">
+            <CheckBox fx:id="onehour_check" layoutX="528.0" layoutY="196.0" mnemonicParsing="false" text="1 hour">
                <font>
                   <Font name="Bitstream Vera Sans Mono Bold" size="10.0" />
                </font></CheckBox>

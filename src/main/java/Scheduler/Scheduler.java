@@ -1,19 +1,11 @@
 package Scheduler;
 
-import DB_Driver.AppointmentTable;
-import org.quartz.JobDetail;
-import org.quartz.SchedulerException;
-import org.quartz.SchedulerFactory;
 import org.quartz.*;
+import org.quartz.impl.StdSchedulerFactory;
 
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Date;
-import org.apache.log4j.*;
-
-import static org.quartz.CronScheduleBuilder.cronSchedule;
-import static org.quartz.JobBuilder.newJob;
-import static org.quartz.TriggerBuilder.newTrigger;
 
 /**
  * Class used to create a job using Quartz to send an email at a specific time
@@ -34,27 +26,23 @@ public class Scheduler {
      * executes ReminderJob class every minute, used to send reminders to our patients
      */
     public static void runReminder() {
-        SchedulerFactory schedulerFactory = new org.quartz.impl.StdSchedulerFactory();
-        BasicConfigurator.configure();
         System.out.println("Reminder is running");
 
         try {
-            org.quartz.Scheduler scheduler = schedulerFactory.getScheduler();
-            scheduler.start();
             // define the job and tie it to our ReminderJob class
-            JobDetail job = newJob(SchedulerJob.class)
-                    .withIdentity("myJob", "group1")
-                    .build();
+            JobDetail job = JobBuilder.newJob(SchedulerJob.class).build();
+
 
             // Trigger the job to run now, and then every 60 seconds
-            Trigger trigger = newTrigger()
-                    .withIdentity("myTrigger", "group1")
-                    .startNow()
-                    .withSchedule(cronSchedule("10 0 0/1 1/1 * ? *"))
-                    .build();
-            // cron: at second 10, minute 0, every hour 0/1, start on first day of month everyday 1/1, every month *, every weekday *, every year *
+            Trigger trigger = TriggerBuilder.newTrigger()
+                    .withIdentity("myTrigger")
+                    .withSchedule(CronScheduleBuilder.cronSchedule("0 0/1 * 1/1 * ? *")/*SimpleScheduleBuilder.simpleSchedule().withIntervalInMinutes(1)
+                            .repeatForever()*/).build();
+            // crone: starts at 12 and repeats every minute
 
+            org.quartz.Scheduler scheduler = StdSchedulerFactory.getDefaultScheduler();
             // TEll quartz to schedule the job using our trigger
+            scheduler.start();
             scheduler.scheduleJob(job, trigger);
         } catch (SchedulerException e) {
             System.out.println("something with the scheduler");

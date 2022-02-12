@@ -278,26 +278,33 @@ public class MakeAppointmentController {
         connection.close();
         //------------------------------------------------------------------------------------------------------------------------
 
+
+        //------------------------------------------------------------------------------------------------------------------------
         try {
             connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/ehealth_db", "ehealth", db_password); //localhost:3306/
             System.out.println("Successful DB connection");
 
             //put method here to calculate time stamp date of appointment, appointment saved as timestamp and parsed to this, Amalie - a lot of different options here because I was trying different approaches
-            LocalDateTime appointment= LocalDateTime.of(LocalDate.parse((datePicker.getValue()).toString()), LocalTime.parse(timeComboBox.getSelectionModel().getSelectedItem()));
-            Timestamp timestamp =Timestamp.valueOf(appointment);
+            LocalDateTime appointmentTime= LocalDateTime.of(LocalDate.parse((datePicker.getValue()).toString()), LocalTime.parse(timeComboBox.getSelectionModel().getSelectedItem()));
+            Timestamp timestamp =Timestamp.valueOf(appointmentTime);
             System.out.println("Timestamp of LocalDateTime appointment is:"+timestamp);  //testing values against each other
-            System.out.println("LocalDateTime appointment is:"+appointment);            //testing values against each other
+            System.out.println("LocalDateTime appointment is:"+appointmentTime);            //testing values against each other
             //the above is needed because I want to save a timestamp in the DB to work with it for reminders and time frames
 
+
+
+            /*  Might be useful later
             //determines which time (down to exact hour) is 7 days apart from appointment time and saves it as timestamp (which is one to save transferable to DB)
             if(week_reminder==true){
                 System.out.println("Reminder one week ahead of appointment is selected.");
-                LocalDateTime ra=appointment.minusDays(7);
+                LocalDateTime ra=appointmentTime.minusDays(7);
                 Timestamp timestampweek=Timestamp.valueOf(ra);
-                System.out.println("LocalDateTime appointment is:"+appointment +" A reminder will be sent:" +timestampweek);
+                System.out.println("LocalDateTime appointment is:"+appointmentTime +" A reminder will be sent:" +timestampweek);
             }
+            */
 
-            System.out.println("Appointment as a time stamp is" +appointment);
+            // Insert appointment into database
+            System.out.println("Appointment as a time stamp is" +appointmentTime);
             PreparedStatement Insert = connection.prepareStatement("INSERT INTO appointments (doctorId, userId, appointmentDate, appointmentTime,  note, realTimeAppointment) VALUES (?, ?, ?, ?, ?, ?)");
             Insert.setInt(1, doctorId);
             Insert.setInt(2, user.getUserId());
@@ -309,6 +316,32 @@ public class MakeAppointmentController {
 
             System.out.println("Insert completed");
 
+
+            // Insert into reminder table
+            //-----------------------------------------------------------------------------------------------------------
+
+            // The appointment is created in the appointment table, so we can simply get the id by looking up the last id
+            int lastId = 0;
+            PreparedStatement getLastId = connection.prepareStatement("SELECT id FROM appointments");
+            ResultSet lastIdSet = getLastId.executeQuery();
+
+            while (lastIdSet.next()){
+                lastId = lastIdSet.getInt("id");
+            }
+
+            // insert the values of the checkboxes into the table by adding ture if they are checked or else false
+            PreparedStatement reminderInsert = connection.prepareStatement("INSERT INTO reminder (AppointmentID, ReminderWeek, ReminderThreeDays, ReminderOneDay, ReminderOneHour) VALUES(?, ?, ?, ?, ?)");
+            reminderInsert.setInt(1, lastId);
+            reminderInsert.setBoolean(2, week_check.isSelected());
+            reminderInsert.setBoolean(3, threedays_check.isSelected());
+            reminderInsert.setBoolean(4, oneday_check.isSelected());
+            reminderInsert.setBoolean(5, onehour_check.isSelected());
+            reminderInsert.executeUpdate();
+
+
+            /*
+            // Might be better in the reminder job
+            //---------------------------------------------------------------------------------------------------------------------------------------------------------
             //Here I got my grandfather news so I stopped but my plan was to insert this into my reminder table and then work from there
             PreparedStatement ReminderInsert=connection.prepareStatement("INSERT INTO reminder(AppointmentID, AppointmentTime, Reminder Time) VALUES (?, ?, ?)");
             //ReminderInsert.setInt()
@@ -335,10 +368,16 @@ public class MakeAppointmentController {
         }catch(SQLException | MessagingException e ){
             System.out.println("Connection failed in MakeAppointment or potentially email sending went wrong");
         }
+        //-------------------------------------------------------------------------------------------------------------------------------------------
+         */
+
+         // new catch because email will be handled elsewhere
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
         connection.close();
 
         controller.switchToMainPage(event);
-
     }
 
     // Function that gets doctors in radius and clears list (Amalie), the magic here happens in SQL where I query with the spherical law of cosines
