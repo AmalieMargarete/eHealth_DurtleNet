@@ -146,7 +146,7 @@ public class MainPageController {
 
 
         Document document = new Document();
-        PdfWriter.getInstance(document, new FileOutputStream(path + "\\HealthInfo.pdf"));
+        PdfWriter.getInstance(document, new FileOutputStream(path + "\\HealthInfo_"+user.getLastName()+ "_"+user.getFirstname()+".pdf"));
         //PdfDocument pdfDocument = new PdfDocument(writer);
         document.open();
         System.out.println("Document was found and opened");

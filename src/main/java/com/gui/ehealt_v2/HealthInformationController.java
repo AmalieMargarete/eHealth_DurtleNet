@@ -27,6 +27,9 @@ public class HealthInformationController {
 
     SceneController controller = new SceneController();
 
+    UserHolder holder = UserHolder.getInstance();
+    User user = holder.getUser();
+
     @FXML
     private Label nameLabel;
     @FXML
@@ -56,8 +59,7 @@ public class HealthInformationController {
      */
     @FXML
     public void setHealthInfoOnClick() throws SQLException, DocumentException, FileNotFoundException {
-        UserHolder holder = UserHolder.getInstance();
-        User user = holder.getUser();
+
 
         Connection connection = null;
         ResultSet resultSet = null;
@@ -136,12 +138,14 @@ public class HealthInformationController {
      */
     @FXML
     public void selectPathOnClick(){
+
+
         JFileChooser fileChooser = new JFileChooser();
 
         fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);        // select only folders
         fileChooser.showSaveDialog(null);                                 // select file to save
         String path = fileChooser.getSelectedFile().getAbsolutePath();          // get path
-        filePathTextField.setText(path);                                        // show path in txtField
+        filePathTextField.setText(path + "\\HealthInfo.pdf");                                        // show path in txtField
         path = path.replace("\\", "\\\\");                      // replace the \ with \\ because java
         System.out.println(path);
 

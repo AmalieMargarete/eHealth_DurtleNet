@@ -7,7 +7,9 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 /**
- * Class to hold the AppointmentData
+ * Class to hold the AppointmentData.
+ * It also holds an id for the database and identification,
+ * the date and time of the appointment
  * @author Viktor Benini, StudentID: 1298976
  */
 public class Appointment {

@@ -178,7 +178,10 @@ public class UserProfileEditController {
                 }
 
                 connection.close();
-                controller.switchToMainPage(event);
+
+                // window still open just close this one
+                //controller.switchToMainPage(event);
+                controller.closeStage(save_button);
 
             } catch (SQLException ex) {
                 System.out.println("Unsuccessful connection");
