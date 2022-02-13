@@ -130,6 +130,52 @@ public class MailUtil {
     }
 
 
+
+
+    //====================================================================================================
+    // FUNCTIONS USED IN PROGRAM !
+
+    public static void sendMailUpdateReminder(String recipient, Appointment appointment) throws MessagingException {
+        System.out.println("Preparing to send Mail");
+        Properties properties = new Properties();
+
+        properties.put("mail.smtp.auth", true);                 // defines if authentication is needed
+        properties.put("mail.smtp.starttls.enable", true);      // tls encryption due to gmail
+        properties.put("mail.smtp.host", "smtp.gmail.com");     // host from mail server
+        properties.put("mail.smtp.port", "587");                // gmail port
+
+        String myAccountEmail = "DurtleTeam@gmail.com";  //changed email here to run tests (Amalie)
+        String password = "durtleteam2022!";
+
+        Session session = Session.getInstance(properties, new Authenticator() {      // prepare authentication
+            @Override
+            protected PasswordAuthentication getPasswordAuthentication() {
+                return new PasswordAuthentication(myAccountEmail, password);
+            }
+        });
+
+        Message message = prepareMessageUpdateReminder(session, myAccountEmail, recipient, appointment);
+        Transport.send(message);
+        System.out.println("Message sent successfully");
+    }
+
+    public static Message prepareMessageUpdateReminder(Session session, String myAccountEmail, String recipient, Appointment appointment){
+        try {
+            Message message = new MimeMessage(session);
+            message.setFrom(new InternetAddress(myAccountEmail));
+            message.setRecipient(Message.RecipientType.TO, new InternetAddress(recipient));
+            message.setSubject("Your eHealth appointment");
+            message.setText("Hey there from Durtle and team! You have updated your  appointment with Dr. " + appointment.getDoctor().getFirstname() + " " + appointment.getDoctor().getLastName() + "\n" +
+                    "Your appointment is now on the " + appointment.getDate() + " at: " + appointment.getTime() + "\n\n" +
+                    "Address: \n" + appointment.getDoctor().getStreet() + " " + appointment.getDoctor().getHouseNumber() + "\n" + appointment.getDoctor().getZIP() + " " + appointment.getDoctor().getTown());
+            return message;
+        } catch (Exception e) {
+            Logger.getLogger(MailUtil.class.getName()).log(Level.SEVERE, null, e);
+        }
+
+        return null;
+    }
+
     /**
      * Method to send email to the doctor, to request the
      * @param recipient

@@ -1,7 +1,9 @@
 package com.gui.ehealt_v2;
 
 import Appointment.Appointment;
+import Mail.MailUtil;
 import UserManagement.Doctor;
+import UserManagement.User;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -11,6 +13,7 @@ import javafx.scene.control.DatePicker;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 
+import javax.mail.MessagingException;
 import java.sql.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -46,7 +49,7 @@ public class UpdateAppointmentController {
      * Update the appointment in the DB, by the given values LocalDate and Time as String
      * @throws SQLException
      */
-    public void onOkButtonClick() throws SQLException {
+    public void onOkButtonClick() throws SQLException, MessagingException {
 
         if(datePicker.getValue().isBefore(LocalDate.now())){
             showAlert(Alert.AlertType.ERROR, okButton.getScene().getWindow(), "Form Error!", "The picked date is in the past");
@@ -105,6 +108,50 @@ public class UpdateAppointmentController {
          connection.close();
          Stage stage = (Stage) okButton.getScene().getWindow();
          stage.close();
+
+         // sends mail to confirm changes on the appointment
+         sendAppointmentMail();
+
+    }
+
+    /**
+     * send the appointmentMail to the user after finishing the created appointment
+     */
+    public void sendAppointmentMail() throws MessagingException {
+        Appointment currentAppointment = null;
+
+        Connection connection = null;
+        try{
+            connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/ehealth_db", "ehealth", "hells"); //localhost:3306/
+            System.out.println("Successful DB connection");
+            // inner join with appointments, doctors and users to create all appointments in a list
+            PreparedStatement Insert = connection.prepareStatement("SELECT * FROM (((appointments\n" +
+                    "INNER JOIN doctors ON doctors.id = appointments.doctorId)\n" +
+                    "INNER JOIN users ON users.id = appointments.userId)" +
+                    "INNER JOIN reminder ON appointments.id = reminder.AppointmentID);");
+            ResultSet resultSet = Insert.executeQuery();
+            System.out.println("Insert completed");
+
+            // selects the last appointment
+            while (resultSet.next()){
+                currentAppointment = new Appointment(
+                        resultSet.getInt("appointments.id"), resultSet.getDate("appointmentDate").toLocalDate(), resultSet.getString("appointmentTime"),
+                        new User(resultSet.getInt("userId"), resultSet.getString("users.FirstName"), resultSet.getString("users.LastName"),
+                                resultSet.getString("users.Street"), resultSet.getString("users.HouseNumber"), resultSet.getString("users.ZIP"), resultSet.getString("users.Town"),
+                                resultSet.getString("users.Email"), resultSet.getDate("users.BirthDate"), resultSet.getString("users.CreationDate"),
+                                resultSet.getString("users.InsuranceName"), resultSet.getString("users.InsuranceType"), " "),
+                        new Doctor(resultSet.getInt("doctorId"), resultSet.getString("doctors.FirstName"), resultSet.getString("doctors.LastName"),
+                                resultSet.getString("doctors.Street"),resultSet.getString("doctors.HouseNumber"), resultSet.getString("doctors.zip"), resultSet.getString("doctors.Town"),
+                                resultSet.getString("doctors.Email"), resultSet.getString("doctors.Telephone"), resultSet.getString("doctors.Specialization"),
+                                "00-24"),
+                        resultSet.getString("note"),
+                        resultSet.getInt("reminder"));
+            }
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+
+        MailUtil.sendMailUpdateReminder(currentAppointment.getUser().getEmail(), currentAppointment);
 
     }
 
