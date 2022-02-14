@@ -24,7 +24,11 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 /**
- * Class to handle GUI
+ * Class to handle GUI, to make an appointment.
+ * The class uses the user holder to identify the user creating the appointment.
+ * Also, we have an SceneController to easily switch between the scenes.
+ * The timeList provides the possible times for the appointment and the radiusList provides the
+ * radius in km for the doctor search.
  * @author Viktor Benini; StudentID: 1298976
  * Doctor radius search and email sent as a reminder after appointments
  * @author Amalie Wilke, 1304925
@@ -91,7 +95,8 @@ public class MakeAppointmentController {
 
     /**
      * By tipping in the Searchbar doctors get selected by First
-     * or Lastname out of database
+     * or Lastname out of database. The Doctor and specification list are getting updated
+     * with the returned values.
      * @throws SQLException
      */
     @FXML
@@ -121,7 +126,8 @@ public class MakeAppointmentController {
     }
 
     /**
-     * By tipping in the Searchbar specification the database
+     * By tipping in the Searchbar specification the database. The Doctor list and Specification list
+     * are getting updated with the returned values.
      * @throws SQLException
      */
     @FXML
@@ -149,7 +155,8 @@ public class MakeAppointmentController {
     }
 
     /**
-     *
+     * By clicking on an item in the specification list the selected value is set to the text field and
+     * all doctors with the similar specification are shown, by getting them out of the database.
      * @throws SQLException
      */
     @FXML
@@ -184,7 +191,7 @@ public class MakeAppointmentController {
 
     /**
      * Class that puts selected doctor in textBox for later uses
-     * and enters the depending specialisation
+     * and enters the depending specialisation to the list
      */
     @FXML
     protected void doctorListOnMouseClick() throws SQLException {
@@ -216,7 +223,10 @@ public class MakeAppointmentController {
 
 
     /**
-     * Method to create Appointment and inserts it into DB
+     * Method to create Appointment and inserts it into DB, by checking if all necessary fields are filled and
+     * parsing them into the appointment table in the database. Afterwards the table for the reminder is filled with the id of the created appointment,
+     * by querying the appointment out of the database, due to the auto created id. Then the sendMail function is called to send the user an email to
+     * confirm the creation of his appointment.
      * @throws SQLException
      */
     @FXML
@@ -384,7 +394,8 @@ public class MakeAppointmentController {
     }
 
     /**
-     * send the appointmentMail to the user after finishing the created appointment
+     * send the appointmentMail to the user after finishing the created appointment, by querying the last created appointment and parsing it
+     * into the sendMail function of the MailUtility class. Required is the user-mail provided by the USerHolder, and the queried appointment.
      */
     public void sendAppointmentMail() throws MessagingException {
         Appointment currentAppointment = null;
@@ -425,6 +436,15 @@ public class MakeAppointmentController {
     }
 
     // Function that gets doctors in radius and clears list (Amalie), the magic here happens in SQL where I query with the spherical law of cosines
+    /**
+     * The method is called when selecting a value out of the radiusComboBox.
+     * The method uses the spherical law to calculate the distance of the doctor to the
+     * user based on the latitude and longitude of both. The filtered doctors are than
+     * shown in the doctor list with the corresponding specification.
+     *
+     * Function that gets doctors in radius and clears list (Amalie), the magic here happens in SQL where I query with the spherical law of cosines
+     * @throws SQLException
+     */
     public void getDoctorInRadius() throws SQLException {
         doctorList.getItems().clear();
         specializationList.getItems().clear();
@@ -504,7 +524,8 @@ public class MakeAppointmentController {
     }
 
     /**
-     * calss to throw alert when called
+     * Method is used to throw an alert, by opening a new window. The method needs the parameters AlertType which specific the alert reason
+     * the Window owner which parses the current window, and the Stage name as well as the alert massage shown in the window.
      * @param alertType
      * @param owner
      * @param s

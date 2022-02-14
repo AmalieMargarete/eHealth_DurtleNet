@@ -20,7 +20,9 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 /**
- * Class that handles the GUI, to update the selected time of an appointment
+ * Class that handles the GUI, to update the selected time of an appointment.
+ * Includes a String array of the available times for an appointment.
+ * And an object of the Appointment class.
  * @author Viktor Benini; StudentID: 1298976
  */
 public class UpdateAppointmentController {
@@ -46,7 +48,8 @@ public class UpdateAppointmentController {
     private Appointment appointment;
 
     /**
-     * Update the appointment in the DB, by the given values LocalDate and Time as String
+     * Update the appointment in the DB, by the given values LocalDate date from the datePicker
+     * and Time as String
      * @throws SQLException
      */
     public void onOkButtonClick() throws SQLException, MessagingException {
@@ -115,7 +118,9 @@ public class UpdateAppointmentController {
     }
 
     /**
-     * send the appointmentMail to the user after finishing the created appointment
+     * send the appointmentMail to the user after finishing the created appointment.
+     * By an inner join in the database we select all needed information and go through the results
+     * a look for our appointment my comparing the ids. Then pass this appointment to the MailUtility method.
      */
     public void sendAppointmentMail() throws MessagingException {
         Appointment currentAppointment = null;
@@ -134,18 +139,20 @@ public class UpdateAppointmentController {
 
             // selects the last appointment
             while (resultSet.next()){
-                currentAppointment = new Appointment(
-                        resultSet.getInt("appointments.id"), resultSet.getDate("appointmentDate").toLocalDate(), resultSet.getString("appointmentTime"),
-                        new User(resultSet.getInt("userId"), resultSet.getString("users.FirstName"), resultSet.getString("users.LastName"),
-                                resultSet.getString("users.Street"), resultSet.getString("users.HouseNumber"), resultSet.getString("users.ZIP"), resultSet.getString("users.Town"),
-                                resultSet.getString("users.Email"), resultSet.getDate("users.BirthDate"), resultSet.getString("users.CreationDate"),
-                                resultSet.getString("users.InsuranceName"), resultSet.getString("users.InsuranceType"), " "),
-                        new Doctor(resultSet.getInt("doctorId"), resultSet.getString("doctors.FirstName"), resultSet.getString("doctors.LastName"),
-                                resultSet.getString("doctors.Street"),resultSet.getString("doctors.HouseNumber"), resultSet.getString("doctors.zip"), resultSet.getString("doctors.Town"),
-                                resultSet.getString("doctors.Email"), resultSet.getString("doctors.Telephone"), resultSet.getString("doctors.Specialization"),
-                                "00-24"),
-                        resultSet.getString("note"),
-                        resultSet.getInt("reminder"));
+                if(resultSet.getInt("appointments.id") == appointment.getId()) {    // get the correct appointment out of the inner join table
+                    currentAppointment = new Appointment(
+                            resultSet.getInt("appointments.id"), resultSet.getDate("appointmentDate").toLocalDate(), resultSet.getString("appointmentTime"),
+                            new User(resultSet.getInt("userId"), resultSet.getString("users.FirstName"), resultSet.getString("users.LastName"),
+                                    resultSet.getString("users.Street"), resultSet.getString("users.HouseNumber"), resultSet.getString("users.ZIP"), resultSet.getString("users.Town"),
+                                    resultSet.getString("users.Email"), resultSet.getDate("users.BirthDate"), resultSet.getString("users.CreationDate"),
+                                    resultSet.getString("users.InsuranceName"), resultSet.getString("users.InsuranceType"), " "),
+                            new Doctor(resultSet.getInt("doctorId"), resultSet.getString("doctors.FirstName"), resultSet.getString("doctors.LastName"),
+                                    resultSet.getString("doctors.Street"), resultSet.getString("doctors.HouseNumber"), resultSet.getString("doctors.zip"), resultSet.getString("doctors.Town"),
+                                    resultSet.getString("doctors.Email"), resultSet.getString("doctors.Telephone"), resultSet.getString("doctors.Specialization"),
+                                    "00-24"),
+                            resultSet.getString("note"),
+                            resultSet.getInt("reminder"));
+                }
             }
         }catch (SQLException e){
             e.printStackTrace();

@@ -10,7 +10,17 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
+/**
+ * Start class. This class defines the start of the program and opens the login window, by using
+ * javaFX, to open a stage and a scene, and selecting the correct fxml data.
+ */
 public class HelloApplication extends Application {
+    /**
+     * method that opens the login window, by calling an FXMLLoader that reads the fxml file and
+     * provides it to the scene and stage.
+     * @param stage
+     * @throws IOException
+     */
     @Override
     public void start(Stage stage) throws IOException {
         // starts the reminder scheduler when starting the program
@@ -25,6 +35,10 @@ public class HelloApplication extends Application {
         stage.show();
     }
 
+    /**
+     * main starts the start method
+     * @param args
+     */
     public static void main(String[] args) {
         launch();
     }

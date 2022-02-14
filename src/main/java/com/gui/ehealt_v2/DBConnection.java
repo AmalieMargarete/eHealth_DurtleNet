@@ -19,6 +19,10 @@ public class DBConnection {
     private static final String Password="hells";
     private static Connection connection;
 
+    /**
+     * Method returns the connection to the database after attempting it.
+     * @return
+     */
     public static Connection getConnection(){
         try{
             connection= DriverManager.getConnection(String.format("jdbc:mysql://localhost:%i/%s", "%s", "%s", Port, DB_Name, Username, Password));

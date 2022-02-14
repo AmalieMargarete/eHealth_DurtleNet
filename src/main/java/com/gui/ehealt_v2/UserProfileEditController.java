@@ -15,6 +15,12 @@ import org.w3c.dom.Text;
 import java.sql.*;
 import java.time.LocalDate;
 
+/**
+ * Class handles the GUI of the edit user Scene and provides functions to edit
+ * the user in the database. It includes a UserHolder for easy user information
+ * access and a SceneController object.
+ * @author Amalie Wilke; StudentID: 1304925
+ */
 public class UserProfileEditController {
     @FXML
     private Button save_button;
@@ -45,6 +51,14 @@ public class UserProfileEditController {
     UserHolder userHolder = UserHolder.getInstance();
     User user = userHolder.getUser();
 
+    /**
+     * This method is called by pressing the edit button.
+     * It opens a database connection and checks the user. Afterwards
+     * it checks the fxml textField for any input and add this by an update
+     * command to the database.
+     * @param event
+     * @throws Exception
+     */
     public void UserEdit(ActionEvent event) throws Exception {
 
         Window owner = save_button.getScene().getWindow();
@@ -188,6 +202,15 @@ public class UserProfileEditController {
             }
 
         }
+
+    /**
+     * Method is used to throw an alert, by opening a new window. The method needs the parameters AlertType which specific the alert reason
+     * the Window owner which parses the current window, and the Stage name as well as the alert massage shown in the window.
+     * @param alertType
+     * @param owner
+     * @param s
+     * @param alertmessage
+     */
     public static void showAlert (Alert.AlertType alertType, Window owner, String s, String alertmessage){
 
         Alert alert = new Alert(alertType);

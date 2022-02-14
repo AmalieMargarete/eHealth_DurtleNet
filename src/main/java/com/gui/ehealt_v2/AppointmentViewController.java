@@ -132,6 +132,12 @@ public class AppointmentViewController {
 
 
     //Method to get appointments in a specific user specfified time range using SQL  join and time stamp calculations, Amalie
+    /**
+     * Method is used to select appointments specified by the time. The user selects via the TimeComboBox the appointments in a certain range of time.
+     * The method checks for the selected option all, 1 week, 3 days, 1 day and 1 hour. By parsing an int value to differ between the remaining time, it selects
+     * the correct appointments, that are in the range for example in 1 week (time_dif <= 7). Afterwards the appointments are inserted into the fxml table.
+     * @throws SQLException
+     */
     public void getAppointmentsInTimeRange() throws SQLException{
 
         appointmentObservableList.clear();
@@ -151,7 +157,7 @@ public class AppointmentViewController {
             preparedStatement.setInt(1, user.getUserId());
             preparedStatement.setInt(2, ti);
             ResultSet resultSet=preparedStatement.executeQuery();
-                System.out.println("Time range selected is:"+ti);
+                System.out.println("Time range selected is: "+ti);
                 while(resultSet.next()){
                     appointmentObservableList.add(new Appointment(resultSet.getInt("appointments.id"),
                             resultSet.getDate("AppointmentDate").toLocalDate(), resultSet.getString("appointmentTime"),    // TODO: need to get LocalDateTime but only Date is provided by DB
@@ -274,6 +280,12 @@ public class AppointmentViewController {
 
     }
     // TODO: need reminder implementation for the doctor
+
+    /**
+     * Method is called when pressing the cancel button in the GUI.
+     * The method deletes the appointment, by the selected appointment in the fxml table and uses the id, to parse it into the database delete command
+     * @throws SQLException
+     */
     @FXML
     public void onCancelAppointmentButtonClick() throws SQLException {
         Connection connection = null;
@@ -293,6 +305,8 @@ public class AppointmentViewController {
 
     /**
      * Method to view appointment details in new Window
+     * The method gets the selected appointment out of the fxml table and stores it as an object to provide it to the scene switch function of
+     * the SceneController object
      * @throws IOException
      */
     @FXML
@@ -302,7 +316,9 @@ public class AppointmentViewController {
   }
 
     /**
-     * Method to update the time of the Appointment by opening new window
+     * Method is called by Change Time button click
+     * Method is used to update the date and time of the appointment by opening new window via the SceneController. The appointment to be
+     * updated is provided to the next window.
      * @throws IOException
      * @throws SQLException
      */
@@ -319,7 +335,8 @@ public class AppointmentViewController {
     }
 
     /**
-     * switches to main page, by calling method of Controller
+     * Method is called by back button on click
+     * switches to main page, by calling method of SceneController
      * @param event
      * @throws IOException
      */

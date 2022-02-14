@@ -21,6 +21,10 @@ import java.util.Scanner;
 
 /**
  * Class controls GUI of health information
+ * The user can set his information with the given fxml textFields and can select the path, where the created pdf of
+ * his information will be saved.
+ * The SceneController object is used to jump easily between scenes if needed and provides the corresponding functions.
+ * The UserHolder is used to access the data of the current user, without opening a database connection.
  * @author Viktor Benini; StudentID: 1298976
  */
 public class HealthInformationController {
@@ -134,7 +138,8 @@ public class HealthInformationController {
 
     /**
      * method to select a folder to save the healthInformation of the user. JFileChooser opens the internal folder tree
-     * where the user can select the saving directory. The directory will be saved in a .txt file for further use.
+     * where the user can select the saving directory. The directory will be saved in a .txt file for further use, for example
+     * opening the file at another point in the program. By this method it can easily be found.
      */
     @FXML
     public void selectPathOnClick(){
@@ -183,7 +188,8 @@ public class HealthInformationController {
 
     /**
      * Method that sets the information of the user to the Scene. So the user sees his personal information
-     * that are added to the HealthInformation and can confirm that they are correct
+     * that are added to the HealthInformation and can confirm that they are correct. This happens by getting
+     * the information out of the database, by using his user id to select the correct dataset.
      * @param user
      * @throws FileNotFoundException
      */

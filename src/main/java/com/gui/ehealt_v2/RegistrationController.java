@@ -1,13 +1,4 @@
 package com.gui.ehealt_v2;
-/**
- * Class allows for first time registration of a user (as well as checking user is not registering double using email),
- * user inputs information and it is inserted into DB
- * Geocoding data (longitude and latitude) are also extracted using user input and saved in DB
- * DB connection achieved with JDBC driver
- * DB: MYSQL, localhost on each pc
- * After registration immediate return to login page for login
- * @author Amalie Wilke; StudentID: 1304925
- */
 
 import Encryption.HashClass;
 import GoogleMaps.*;
@@ -22,6 +13,15 @@ import javafx.stage.Window;
 import java.sql.*;
 import java.time.LocalDate;
 
+/**
+ * Class allows for first time registration of a user (as well as checking user is not registering double using email),
+ * user inputs information and it is inserted into DB
+ * Geocoding data (longitude and latitude) are also extracted using user input and saved in DB
+ * DB connection achieved with JDBC driver
+ * DB: MYSQL, localhost on each pc
+ * After registration immediate return to login page for login
+ * @author Amalie Wilke; StudentID: 1304925
+ */
 public class RegistrationController {
     String db_password = "hells";  //
 
@@ -69,6 +69,17 @@ public class RegistrationController {
     @FXML
     private TextField confirm_password_textfield;
 
+    /**
+     * Class is called when the registration button is pressed.
+     * The class checks if the user filled all the fields and throws an alert if not. Then the strings, that were pulled out of
+     * the textFields, were checked for useless spaces and in case removed. The method then checks if the user already exists and
+     * if the inserted values are acceptable, like the birthdate is in the past. After that the data is filled into the database.
+     * And the password gets hashed by the hash-method of the HashClass, for the address a longitude and latitude are added for
+     * distance use, by the method latlongcoord of the class GeocodeCoordinates.
+     *
+     * @param event
+     * @throws Exception
+     */
     public void registration(ActionEvent event) throws Exception{
 
         insurance_type.getItems().addAll("Private", "Public");
@@ -185,22 +196,27 @@ public class RegistrationController {
         connection.close();
     }
 
+    /**
+     * called by pressing the back button.
+     * Calls a switch scene method of the SceneController class
+     * @param event
+     * @throws Exception
+     */
     public void ReturnToLogin(ActionEvent event) throws Exception{
         controller.switchToLogin(event);
 
     }
 
-    public static void showAlert(Alert.AlertType alertType, Window owner, String s, String alertmessage) {
 
-        Alert alert= new Alert(alertType);
-        alert.setTitle(s);
-        alert.setHeaderText(null);
-        alert.setContentText(alertmessage);
-        alert.initOwner(owner);
-        alert.show();
-    }
 
     //method to get the latitude and longitude of the user input to save in DB parallel to normal address format for future calculations for radius search
+    /**
+     * method to get the latitude and longitude of the user input to save in DB parallel to normal address format for future calculations for radius search
+     * @param str
+     * @param hn
+     * @param zi
+     * @param to
+     */
     public void transformAddress(String str, String hn, String zi, String to){
 
         try{
@@ -213,10 +229,31 @@ public class RegistrationController {
         }
     }
 
+    /**
+     * sets the image of the imageView on the page by the provided image.
+     * @param image
+     */
     public void setImage(Image image){
         durtleImageView.setImage(image);
     }
 
+    /**
+     * Method is used to throw an alert, by opening a new window. The method needs the parameters AlertType which specific the alert reason
+     * the Window owner which parses the current window, and the Stage name as well as the alert massage shown in the window.
+     * @param alertType
+     * @param owner
+     * @param s
+     * @param alertmessage
+     */
+    public static void showAlert(Alert.AlertType alertType, Window owner, String s, String alertmessage) {
+
+        Alert alert= new Alert(alertType);
+        alert.setTitle(s);
+        alert.setHeaderText(null);
+        alert.setContentText(alertmessage);
+        alert.initOwner(owner);
+        alert.show();
+    }
 
 
 }

@@ -197,6 +197,12 @@ public class SceneController {
         stage.show();
     }
 
+    /**
+     * opens the healthInformation and sets the values by calling the method of the corresponding controller
+     * @param bar
+     * @throws IOException
+     * @throws SQLException
+     */
    public void switchToEditHealthInfoController(MenuBar bar) throws IOException, SQLException {
         UserHolder holder = UserHolder.getInstance();
         User user = holder.getUser();
@@ -212,6 +218,12 @@ public class SceneController {
         stage.show();
     }
 
+    /**
+     * opens the UserInformation and sets the values by calling the method of the corresponding controller
+     * @param bar
+     * @throws IOException
+     * @throws SQLException
+     */
     public void switchToUserProfile(MenuBar bar) throws IOException{
         UserHolder holder = UserHolder.getInstance();
         User user = holder.getUser();
@@ -239,6 +251,12 @@ public class SceneController {
         stage.show();
 
     }
+
+    /**
+     * opens the edit user window
+     * @param event
+     * @throws IOException
+     */
     public void switchToEditUser(ActionEvent event) throws IOException{
         root = FXMLLoader.load(getClass().getResource("editUser_design.fxml"));
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -248,16 +266,28 @@ public class SceneController {
         stage.show();
     }
 
+    /**
+     * method can be used to close the current stage, by parsing a button of it.
+     * @param button
+     */
     public void closeStage(Button button){
         stage = (Stage)button.getScene().getWindow();
         stage.close();
     }
 
+    /**
+     * method can be used to close the current stage, by parsing a label of it.
+     * @param label
+     */
     public void closeStage(Label label){
         stage = (Stage)label.getScene().getWindow();
         stage.close();
     }
 
+    /**
+     * method can be used to close the current stage, by parsing a fxml text of it.
+     * @param text
+     */
     public void closeStage(Text text){
         stage = (Stage)text.getScene().getWindow();
         stage.close();

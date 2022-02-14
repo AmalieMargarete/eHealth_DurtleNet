@@ -23,7 +23,8 @@ public class MainPageApplication extends Application {
     }
 
     /**
-     * Method for Testing only! used to skip login with a testUser
+     * Method for Testing only! used to skip login with a testUser by querying a predefined user with the needed attributes for
+     * the test.
      * @param stage
      * @throws IOException
      */

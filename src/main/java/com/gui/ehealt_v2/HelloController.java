@@ -1,10 +1,4 @@
 package com.gui.ehealt_v2;
-/**
- * Class allows for login of user and redirecting to either mainpage, admin view or registration
- * DB connection achieved with JDBC driver
- * DB: MYSQL, localhost
- * @author Amalie Wilke; StudentID: 1304925, scene controll function used by Viktor Benini
- */
 
 import Encryption.HashClass;
 import UserManagement.User;
@@ -21,6 +15,12 @@ import java.io.IOException;
 import java.sql.*;
 import java.time.LocalDate;
 
+/**
+ * Class allows for login of user and redirecting to either mainpage, admin view or registration
+ * DB connection achieved with JDBC driver
+ * DB: MYSQL, localhost
+ * @author Amalie Wilke; StudentID: 1304925, scene controll function used by Viktor Benini
+ */
 public class HelloController {
 
     // easy changeable DB password
@@ -40,13 +40,29 @@ public class HelloController {
     @FXML
     private Button login_button;
 
-
+    /**
+     * Method is called by registration button click.
+     * Uses the SceneController to open the registration window
+     * @param event
+     * @throws IOException
+     */
     public void switchToRegistration(ActionEvent event) throws IOException{
 
         controller.switchToRegistration(event);
 
     }
 
+    /**
+     * Method is called by login button click.
+     * The Method check if the fxml textFields aren't empty, else an alert is thrown. After it checks if
+     * the entered email exists, if not also an alert is thrown. When it finds the mail it checks if the user trying to
+     * log in is an admin or a casual user.
+     * By the admin the password is checked and afterwards the admin view will be opened by the SceneController.
+     * By the casual user the password also will be checked and the SceneController will open the login, but the user that is queried
+     * is saved in the UserHolder to have access to his information during all time in program.
+     * @param event
+     * @throws Exception
+     */
     public void login(ActionEvent event) throws Exception{
 
         Window owner=login_button.getScene().getWindow();
@@ -143,6 +159,14 @@ public class HelloController {
         }
     }
 
+    /**
+     * Method is used to throw an alert, by opening a new window. The method needs the parameters AlertType which specific the alert reason
+     * the Window owner which parses the current window, and the Stage name as well as the alert massage shown in the window.
+     * @param alertType
+     * @param owner
+     * @param s
+     * @param alertmessage
+     */
     public static void showAlert(Alert.AlertType alertType, Window owner, String s, String alertmessage) {
 
         Alert alert= new Alert(alertType);
