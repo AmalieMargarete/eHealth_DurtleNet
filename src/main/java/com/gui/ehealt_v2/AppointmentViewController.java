@@ -23,7 +23,12 @@ import java.sql.*;
 import java.time.LocalDate;
 
 /**
- * Class that handles the GUI for the AppointmentView
+ * Class that handles the GUI for the AppointmentView.
+ * The class uses the fxml elements, to get the information out of the GUI.
+ * The UserHolder is used to get the current user to select the correct appointments of this user.
+ * The sceneController gives the opportunity to switch to other scenes if needed by simply calling a method.
+ * The appointmentList is an observable array list, to store all the appointments of the user.
+ * The timeList is used to give the user the opportunity to select the appointment, by due
  * @author Viktor Benini; StudentID: 1298976
  * Appointments selected by time range
  * @author Amalie Wilke, StudentID: 1304925
@@ -36,9 +41,10 @@ public class AppointmentViewController {
 
     // used to switch between scenes
     final private SceneController controller = new SceneController();
+    // stores the appointments of the user
     ObservableList<Appointment> appointmentObservableList = FXCollections.observableArrayList();
-    //private ArrayList<String> appointmentList = new ArrayList<>();
-
+    // used to set the selectable values of the comboBox
+    String [] TimeList={"All", "1 Week", "3 days", "1 day", "1 hour", "10 minutes"};
 
     @FXML
     private Button printAppointmentButton;
@@ -48,7 +54,7 @@ public class AppointmentViewController {
     private Button detailButton;
     @FXML
     private ComboBox <String> TimeComboBox;
-    String [] TimeList={"All", "1 Week", "3 days", "1 day", "1 hour", "10 minutes"};
+
 
     // Table
     @FXML
@@ -75,19 +81,22 @@ public class AppointmentViewController {
     // TODO: add go back to menu and show confirmation message
 
     /**
+     * Method sets the appointment view table in the GUI by pressing the refresh button, and can also be called to preload the table.
+     * The comboBox including the times for the appointment is set in this method to ensure the box isn't empty and the user has options
+     * to choose.
+     * From the database the appointments of the user with the corresponding doctor are selected and inserted into an observable list. This
+     * list will be added into the table shown in the GUI to display the user all of his appointments.
      * Method to refresh the Appointments, shown in a table, after changes
      * @throws SQLException
      */
     @FXML
     public void setAppointmentList() throws SQLException {
         Connection connection = null;
-        //UserHolder holder = UserHolder.getInstance(); //moved it out of method to use in mine (Amalie)
-        //User user = holder.getUser();
         TimeComboBox.setItems(FXCollections.observableArrayList(TimeList));
-        appointmentObservableList.clear();
+        appointmentObservableList.clear();  // cleared to ensure appointments doesn't show up multiple times
         try{
             connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/ehealth_db", "ehealth", db_password);
-            PreparedStatement preparedStatement=connection.prepareStatement("SELECT * FROM doctors " +
+            PreparedStatement preparedStatement=connection.prepareStatement("SELECT * FROM doctors " +      // gets all appointments of a user and the info dependent of the doc
                     "INNER JOIN appointments " +
                     "ON doctors.id = appointments.doctorId AND appointments.userId = ?;"); // need to be inner join
             preparedStatement.setInt(1, user.getUserId());
@@ -95,7 +104,7 @@ public class AppointmentViewController {
 
             while(resultSet.next()){
                 appointmentObservableList.add(new Appointment(resultSet.getInt("appointments.id"),
-                        resultSet.getDate("AppointmentDate").toLocalDate(), resultSet.getString("appointmentTime"),    // TODO: need to get LocalDateTime but only Date is provided by DB
+                        resultSet.getDate("AppointmentDate").toLocalDate(), resultSet.getString("appointmentTime"),
                         user,
                         new Doctor(resultSet.getInt("doctorId"), resultSet.getString("FirstName"), resultSet.getString("LastName"),  // create new doctor to insert into List
                                 resultSet.getString("Street"), resultSet.getString("HouseNumber"), resultSet.getString("ZIP"), resultSet.getString("Town"),
@@ -120,6 +129,8 @@ public class AppointmentViewController {
 
         connection.close();
     }
+
+
     //Method to get appointments in a specific user specfified time range using SQL  join and time stamp calculations, Amalie
     public void getAppointmentsInTimeRange() throws SQLException{
 

@@ -6,7 +6,7 @@ package com.gui.ehealt_v2;
  * DB: MYSQL, localhost
  * @author Amalie Wilke; StudentID: 1304925
  */
-
+// TODO: Is this class necessary?
 import UserManagement.User;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

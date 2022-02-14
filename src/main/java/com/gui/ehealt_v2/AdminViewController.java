@@ -116,6 +116,13 @@ public class AdminViewController {
     } */
 
 
+    /**
+     * Method is called by the Display User button on click
+     * Method loads the user information out of the database by querying all user data and parses into the tableview, by the given values,
+     * accept the password, for previews safety reasons and due to the fact, that the password is encrypted and useless information.
+     * @param event
+     * @throws Exception
+     */
     public void DisplayUsers(ActionEvent event) throws Exception {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
@@ -158,6 +165,15 @@ public class AdminViewController {
     //   System.out.println(b.toString());  //just to check date is entered
     //}
     //Method to add user after button is clicked
+
+    /**
+     * Method is called by the add button on click
+     * Method adds user to the database by using the inputted information of the GUI and parsing it with an INSERT into the database
+     * if the user doesn't already exist. After the insert the textFields in the GUI are cleared to easily add the next user.
+     * An alert is thrown if the email or password is empty, or the user already exists.
+     * @param event
+     * @throws Exception
+     */
     public void addNewUser(ActionEvent event) throws Exception {
 
         Window owner = adduser_button.getScene().getWindow();
@@ -225,6 +241,13 @@ public class AdminViewController {
 
     }
 
+    /**
+     * Method is called by the edit button on click
+     * Method is used to edit an existing user, by inserting the values provided by the GUI via the TextFields. The data can be separately
+     * inserted by checking if the TextField are filled. An alert is thrown if the user id isn't set, because the insert is based on the id.
+     * @param event
+     * @throws Exception
+     */
     public void editUser(ActionEvent event) throws Exception {
 
         Window owner = adduser_button.getScene().getWindow();
@@ -355,11 +378,18 @@ public class AdminViewController {
         }
     }
 
+    /**
+     * Method is called by the delete button on click
+     * Method is used to delete a user. The user has to be selected in the table to get the email and parse it into the delete statement.
+     * @param event
+     * @throws Exception
+     */
     public void deleteUser(ActionEvent event) throws Exception {
 
         ObservableList<TestUser> selectedUser, allUsers;
         allUsers = user_table.getItems();
         selectedUser = user_table.getSelectionModel().getSelectedItems();
+
         Connection connection = null;
         PreparedStatement preparedStatement = null;
 
@@ -376,13 +406,25 @@ public class AdminViewController {
 
     }
 
+    /**
+     * Method calls a method of the SceneController class, to open up the login window and closes the admin view.
+     * @param event
+     * @throws Exception
+     */
     public void AdminLogout(ActionEvent event) throws Exception {
         controller.switchToLogin(event);
 
     }
 
+    /**
+     * Method is used to throw an alert, by opening a new window. The method needs the parameters AlertType which specific the alert reason
+     * the Window owner which parses the current window, and the Stage name as well as the alert massage shown in the window.
+     * @param alertType
+     * @param owner
+     * @param s
+     * @param alertmessage
+     */
     public static void showAlert(Alert.AlertType alertType, Window owner, String s, String alertmessage) {
-
         Alert alert = new Alert(alertType);
         alert.setTitle(s);
         alert.setHeaderText(null);

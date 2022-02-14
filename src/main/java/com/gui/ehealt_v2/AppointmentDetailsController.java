@@ -16,7 +16,7 @@ public class AppointmentDetailsController {
 
     // TODO: look need to be optimized || can be replaced by Text, maybe ?!
     /**
-     * Sets the Label, to the details of the appointment
+     * Sets the Label, to the details of the appointment, by the provided appointment object.
      * @param appointment
      */
     public void setAppointmentDetailLabel(Appointment appointment){
