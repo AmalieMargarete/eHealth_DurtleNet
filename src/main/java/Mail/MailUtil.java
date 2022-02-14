@@ -129,12 +129,19 @@ public class MailUtil {
         return null;
     }
 
-
-
-
     //====================================================================================================
+
+
     // FUNCTIONS USED IN PROGRAM !
 
+    /**
+     * This method is called to send a mail to confirm the changes made to an existing appointment.
+     * Method opens a connection to the provided email by setting the properties (authentication require?, port, ...). Then prepares the
+     * message in a new method and sends it.
+     * @param recipient
+     * @param appointment
+     * @throws MessagingException
+     */
     public static void sendMailUpdateReminder(String recipient, Appointment appointment) throws MessagingException {
         System.out.println("Preparing to send Mail");
         Properties properties = new Properties();
@@ -159,6 +166,14 @@ public class MailUtil {
         System.out.println("Message sent successfully");
     }
 
+    /**
+     * This method prepares the email for the UpdateReminder method and parses the provided appointment information into the email.
+     * @param session
+     * @param myAccountEmail
+     * @param recipient
+     * @param appointment
+     * @return
+     */
     public static Message prepareMessageUpdateReminder(Session session, String myAccountEmail, String recipient, Appointment appointment){
         try {
             Message message = new MimeMessage(session);
@@ -177,7 +192,9 @@ public class MailUtil {
     }
 
     /**
-     * Method to send email to the doctor, to request the
+     * This method is called to confirm the crating of an appointment or to remind him of an existing on.
+     * Method opens a connection to the provided email by setting the properties (authentication require?, port, ...). Then prepares the
+     * message in a new method and sends it.
      * @param recipient
      * @throws MessagingException
      */
@@ -206,7 +223,7 @@ public class MailUtil {
     }
 
     /**
-     *
+     * This method prepares the email for the Reminder method and parses the provided appointment information into the email.
      * @param session
      * @param myAccountEmail
      * @param recipient
@@ -231,6 +248,9 @@ public class MailUtil {
     }
 
 
+
+
+    //__________________________________NEED WORK_____________________________________________________________________________
 
     /**
      * Method to create a predefined message (email), that is sent to the doctor, when a user created an appointment
@@ -281,6 +301,7 @@ public class MailUtil {
 */
         return null;
     }
+
 }
 
 

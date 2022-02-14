@@ -6,8 +6,15 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
+/**
+ * Class can be used to check if the database connection works
+ */
 public class driver {
 
+    /**
+     * Method opens a database connection and tests a selection of all users
+     * @param args
+     */
     public static void main(String[] args){
 
         try{

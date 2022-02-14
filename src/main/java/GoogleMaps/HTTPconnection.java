@@ -1,11 +1,11 @@
 package GoogleMaps;
 /**
-        * HTTP Request to connect to the Google Maps API to return latitude and longitude via geocoding (sending an normalized address format to return its geocordinates)
-        * The HTTP request returns a Json file with a large amount of geodata for the specified address, I parse it using the streaming method because I only want two specific data points
-        * latitude and longitude
-        * I connect to Google Maps using my API key that keeps track of requests and usage and have adapted the URL to accept variables instead of a static format
-        * @author Amalie Wilke; StudentID: 1304925
-        */
+ * HTTP Request to connect to the Google Maps API to return latitude and longitude via geocoding (sending an normalized address format to return its geocordinates)
+ * The HTTP request returns a Json file with a large amount of geodata for the specified address, I parse it using the streaming method because I only want two specific data points
+ * latitude and longitude
+ * I connect to Google Maps using my API key that keeps track of requests and usage and have adapted the URL to accept variables instead of a static format
+ * @author Amalie Wilke; StudentID: 1304925
+ */
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -20,6 +20,15 @@ public class HTTPconnection {
 
     //Method to send HTTP request to Google Maps API and receive geocoding information of specified normal address (street, house number, zip code, town) and then parse the returned Json file into workable data
     //Method will return an object of class GeocodeCoordinates that contain longitude and latitude of address as floats
+    /**
+     * Method to send HTTP request to Google Maps API and receive geocoding information of specified normal address (street, house number, zip code, town) and then parse the returned Json file into workable data
+     * Method will return an object of class GeocodeCoordinates that contain longitude and latitude of address as floats
+     * @param st
+     * @param house
+     * @param zi
+     * @param town
+     * @return
+     */
     public GeocodeCoordinates createRequest(String st, int house, int zi, String town) {
 
         GeocodeCoordinates coord= new GeocodeCoordinates();
@@ -68,6 +77,11 @@ public class HTTPconnection {
         return coord;
     }
 
+    /**
+     * Method is used to extract the longitude and latitude out of the json file returned by the Google API.
+     * @param responseBody
+     * @return
+     */
     public static GeocodeCoordinates parseToDatabase(String responseBody) {
         //Parsing the Json file received to extract longitude and latitude
         JSONObject obj=new JSONObject(responseBody);  //create Json Object from responsebody string

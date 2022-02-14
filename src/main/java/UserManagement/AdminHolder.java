@@ -14,14 +14,27 @@ public class AdminHolder {
      */
     private AdminHolder(){}
 
+    /**
+     * returns the instance of the class to use functions and
+     * "initialize" class
+     * @return
+     */
     public static AdminHolder getInstance(){
         return INSTANCE;
     }
 
+    /**
+     * set Admin admin
+     * @param admin
+     */
     public void setAdmin(Admin admin){
         this.admin = admin;
     }
 
+    /**
+     * get Admin admin
+     * @return
+     */
     public Admin getAdmin(){
         return admin;
     }

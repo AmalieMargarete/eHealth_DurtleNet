@@ -21,10 +21,18 @@ public class UserHolder {
         return INSTANCE;
     }
 
+    /**
+     * set User user
+     * @param user
+     */
     public void setUser(User user){
         this.user = user;
     }
 
+    /**
+     * get User user
+     * @return
+     */
     public User getUser(){
         return user;
     }

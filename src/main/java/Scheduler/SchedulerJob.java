@@ -19,15 +19,19 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 
 /**
- * Reminder Job implements the Job class of Quartz and executes the sending of an email
+ * Reminder Job implements the Job class of Quartz and executes the sending of an email,
+ * by calling a method of the MailUtility class.
  * @author Viktor Benini, StudentID: 1298976
  */
 public class SchedulerJob implements Job {
 
     /**
-     *
-     * sends reminder to users that have an appointment
-     * and deletes an old appointment
+     * Method is called by the Scheduler.
+     * This method queries all appointments and reminder out of the database and stores
+     * them in two arrayLists. Then for each reminderList element the corresponding
+     * appointment is searched. If found it checks if the appointment has a reminder
+     * and if it has it sends an email at the correct time, by checking the current time
+     * of the job call and the appointment time.
      * @param context
      * @throws org.quartz.JobExecutionException
      */

@@ -8,7 +8,8 @@ import java.time.ZoneId;
 import java.util.Date;
 
 /**
- * Class used to create a job using Quartz to send an email at a specific time
+ * Class used to create a job using Quartz to send an email at a specific time by creating a trigger that
+ * executes a job at a specific time.
  * @author Viktor Benini, StudentID 1298976
  */
 public class Scheduler {
@@ -23,7 +24,10 @@ public class Scheduler {
     }
 
     /**
-     * executes ReminderJob class every minute, used to send reminders to our patients
+     * executes ReminderJob class every minute, used to send reminders to our patients.
+     * The trigger is specified by the API included TriggerBuilder and uses the cronScheduler
+     * to trigger at a full minute every minute. The job is another class that defines the executed
+     * job in a method.
      */
     public static void runReminder() {
         System.out.println("Reminder is running");
@@ -49,6 +53,10 @@ public class Scheduler {
         }
     }
 
+    /**
+     * method to start the reminder if called.
+     * @param args
+     */
     public static void main(String[] args){
         runReminder();
         System.out.println("Should work when this is printed, maybe?!");

@@ -20,10 +20,18 @@ public class DoctorHolder {
         return INSTANCE;
     }
 
+    /**
+     * set Doctor doctor
+     * @param doctor
+     */
     public void setDoctor(Doctor doctor){
         this.doctor = doctor;
     }
 
+    /**
+     * get Doctor doctor
+     * @return
+     */
     public Doctor getDoctor(){
         return doctor;
     }

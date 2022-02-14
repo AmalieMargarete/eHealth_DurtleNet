@@ -10,6 +10,9 @@ import java.sql.*;
 import java.time.LocalDate;
 import java.util.Date;
 
+/**
+ * Test Class to check the mail functions
+ */
 public class AppointmentMail {
     /**
      * main for test reasons
