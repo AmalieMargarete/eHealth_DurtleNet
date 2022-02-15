@@ -4,6 +4,7 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -35,10 +36,6 @@
          <font>
             <Font size="14.0" />
          </font></TextField>
-      <TextField fx:id="new_password_textfield" accessibleRole="PASSWORD_FIELD" layoutX="103.0" layoutY="307.0" promptText="Password" style="-fx-background-color: d2e1ee;">
-         <font>
-            <Font size="14.0" />
-         </font></TextField>
       <TextField fx:id="insurance_textfield" layoutX="103.0" layoutY="221.0" promptText="Insurance" style="-fx-background-color: d2e1ee;">
          <font>
             <Font size="14.0" />
@@ -54,11 +51,6 @@
       <DatePicker fx:id="birthday_input" layoutX="105.0" layoutY="187.0" prefHeight="25.0" prefWidth="89.0" promptText="Birthday" style="-fx-background-color: d2e1ee;" />
       <ComboBox fx:id="insurance_type" layoutX="290.0" layoutY="223.0" opacity="0.66" prefHeight="25.0" prefWidth="81.0" promptText="Type" style="-fx-background-color: d2e1ee;" />
       <ImageView fx:id="durtleImageView" fitHeight="249.0" fitWidth="196.0" layoutX="381.0" layoutY="54.0" pickOnBounds="true" preserveRatio="true" style="bac: #769cbc;" />
-      <TextField fx:id="confirm_password_textfield" accessibleRole="PASSWORD_FIELD" layoutX="284.0" layoutY="307.0" promptText="Confirm Password" style="-fx-background-color: d2e1ee;">
-         <font>
-            <Font size="14.0" />
-         </font>
-      </TextField>
       <FontAwesomeIconView glyphName="USER" layoutX="66.0" layoutY="35.0" selectionEnd="0" size="20" wrappingWidth="27.90477180480957" />
       <FontAwesomeIconView glyphName="HOME" layoutX="59.0" layoutY="115.0" selectionEnd="0" size="25" wrappingWidth="27.90477180480957" />
       <FontAwesomeIconView glyphName="CALENDAR" layoutX="65.0" layoutY="208.0" size="23" wrappingWidth="15.809514045715332" />
@@ -70,5 +62,7 @@
             <Font name="Microsoft Sans Serif" size="15.0" />
          </font>
       </Button>
+      <PasswordField fx:id="new_password_textfield" layoutX="105.0" layoutY="304.0" prefHeight="37.0" prefWidth="173.0" promptText="Password" />
+      <PasswordField fx:id="confirm_password_textfield" layoutX="294.0" layoutY="304.0" prefHeight="37.0" prefWidth="173.0" promptText="Confirm Password" />
    </children>
 </AnchorPane>

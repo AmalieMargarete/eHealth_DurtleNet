@@ -153,7 +153,7 @@ public class AppointmentViewController {
             }
             if(t=="1 Week"){
                 ti=7;
-            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM doctors JOIN appointments ON doctors.id=appointments.doctorId AND appointments.userId=? AND (datediff(appointments.realTimeAppointment,CURRENT_TIMESTAMP)<=?);");
+            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM doctors JOIN appointments ON doctors.id=appointments.doctorId AND appointments.userId=? AND (datediff(appointments.realTimeAppointment,CURRENT_TIMESTAMP)<=? AND appointments.realTimeAppointment>=CURRENT_TIMESTAMP);");
             preparedStatement.setInt(1, user.getUserId());
             preparedStatement.setInt(2, ti);
             ResultSet resultSet=preparedStatement.executeQuery();

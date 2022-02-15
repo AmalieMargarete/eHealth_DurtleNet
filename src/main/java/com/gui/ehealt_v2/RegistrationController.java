@@ -66,7 +66,7 @@ public class RegistrationController {
     private TextField new_email_textfield;
 
     @FXML
-    private TextField new_password_textfield;
+    private PasswordField new_password_textfield;
     @FXML
     private TextField confirm_password_textfield;
 
