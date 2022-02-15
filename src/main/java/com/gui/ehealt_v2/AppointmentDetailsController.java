@@ -21,7 +21,7 @@ public class AppointmentDetailsController {
      */
     public void setAppointmentDetailLabel(Appointment appointment){
 
-        appointmentDetailsLabel.setText("Dr. " +appointment.getDoctor().getFirstname() + " " + appointment.getDoctor().getLastName() + "\n" +
+        appointmentDetailsLabel.setText("Dr. " +appointment.getDoctor().getName() + " " + appointment.getDoctor().getLastName() + "\n" +
                 appointment.getDoctor().getDocType() + "\n" +
                 appointment.getDoctor().getStreet() +" "+ appointment.getDoctor().getHouseNumber() + "\n"+
                 appointment.getDoctor().getTown() + " " + appointment.getDoctor().getZIP() + "\n\n" +

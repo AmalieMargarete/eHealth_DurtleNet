@@ -311,6 +311,7 @@ public class AppointmentViewController {
      */
     @FXML
     public void onDetailsButtonClick() throws IOException {
+        System.out.println(appointment_table.getSelectionModel().getSelectedItem());
         Appointment appointment = appointment_table.getSelectionModel().getSelectedItem();
         controller.switchToAppointmentDetailsView(appointment);
   }
