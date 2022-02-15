@@ -9,6 +9,7 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Window;
+import org.json.JSONException;
 
 import java.sql.*;
 import java.time.LocalDate;
@@ -166,8 +167,17 @@ public class RegistrationController {
                 return;
             }
 
+
             else {
-                transformAddress(str_nospaces, hn, zi, to_nospaces);  //Transforms string formats to ints when necessary and passes them to parsing method, final coordinates latitude and longtitude are saved in object GeoCoordinates
+
+                try{
+                    transformAddress(str_nospaces, hn, zi, to_nospaces);  //Transforms string formats to ints when necessary and passes them to parsing method, final coordinates latitude and longtitude are saved in object GeoCoordinates
+                }catch(JSONException e){
+                    System.out.println("Address not found!");
+                    showAlert(Alert.AlertType.ERROR, owner, "Form Error", "Check you entered a correct address!");
+                    return;
+                }
+
                 Insert = connection.prepareStatement("INSERT INTO users (FirstName, LastName, Street, HouseNumber, ZIP, Town, BirthDate, Email, Kennwort, InsuranceName, InsuranceType, Latitude, Longitude) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
                 Insert.setString(1, fn);
                 Insert.setString(2, ln);
@@ -219,11 +229,12 @@ public class RegistrationController {
      */
     public void transformAddress(String str, String hn, String zi, String to){
 
-        try{
             int hnum=Integer.parseInt(hn);  //transforming string values saved in DB to int for Google API
             int z=Integer.parseInt(zi);     //transforming string values saved in DB to int for Google API
             System.out.println("Check intger parsing was correct:"+hnum+" "+z);
-            latlongcoord=httpcon.createRequest(str, hnum, z, to);  //uses the normal
+            try{
+                latlongcoord=httpcon.createRequest(str, hnum, z, to);  //uses the normal
+
         }catch(NumberFormatException ex){
             ex.printStackTrace();
         }
@@ -253,6 +264,10 @@ public class RegistrationController {
         alert.setContentText(alertmessage);
         alert.initOwner(owner);
         alert.show();
+    }
+
+    public void setType(){
+        insurance_type.getItems().addAll("Private", "Public");
     }
 
 

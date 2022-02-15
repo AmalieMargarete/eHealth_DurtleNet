@@ -7,6 +7,7 @@ package GoogleMaps;
  * @author Amalie Wilke; StudentID: 1304925
  */
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
@@ -82,7 +83,7 @@ public class HTTPconnection {
      * @param responseBody
      * @return
      */
-    public static GeocodeCoordinates parseToDatabase(String responseBody) {
+    public static GeocodeCoordinates parseToDatabase(String responseBody) throws JSONException {
         //Parsing the Json file received to extract longitude and latitude
         JSONObject obj=new JSONObject(responseBody);  //create Json Object from responsebody string
         JSONArray obj_arr=obj.getJSONArray("results");  //transfer Json object into an array as the key value of the format is array
@@ -101,5 +102,6 @@ public class HTTPconnection {
 
         return c;
     }
+
     
 }
