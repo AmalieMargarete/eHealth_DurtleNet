@@ -91,8 +91,7 @@ public class SceneController {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("registration_design.fxml"));
         root=loader.load();
         RegistrationController registrationController = loader.getController();
-        // TODO: setAll() not a method. Intended?
-        // registrationController.setAll();
+        registrationController.setType();
         registrationController.setImage(new Image(getClass().getResource("Images/Durtle.png").toString())); // set Durtle image
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root);
