@@ -152,6 +152,14 @@ public class Doctor extends User {
     }
 
     /**
+     * same as get name
+     * @return
+     */
+    public String getFirstname(){
+        return name;
+    }
+
+    /**
      * get String lastname
      * @return
      */
