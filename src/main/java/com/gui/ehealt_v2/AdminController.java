@@ -11,6 +11,7 @@ import UserManagement.User;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -67,9 +68,12 @@ public class AdminController {
     @FXML
     private TextField email_input;
     @FXML
-    private TextField birthday_input;
-    @FXML
     private TextField insurancename_input;
+    @FXML
+    private DatePicker birthday_input;
+    @FXML
+            private DatePicker birthday_edit;
+
 
     //@FXML
     //private Button adduser_button;

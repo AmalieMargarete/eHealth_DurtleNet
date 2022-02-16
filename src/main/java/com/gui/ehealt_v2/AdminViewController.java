@@ -16,6 +16,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Window;
 
+import javax.swing.text.DefaultEditorKit;
 import java.sql.*;
 import java.time.LocalDate;
 
@@ -73,6 +74,8 @@ public class AdminViewController {
     private DatePicker birthday_input;
     @FXML
     private TextField insurancename_input;
+    @FXML
+    private TextField type_input;
     @FXML
     private Button adduser_button;
     @FXML
@@ -189,8 +192,9 @@ public class AdminViewController {
         String to = town_input.getText();
         String em = email_input.getText();
         String pw = password_input.getText();
-        LocalDate bi = b;
+        Date bi = Date.valueOf(birthday_input.getValue());
         String in = insurancename_input.getText();
+        String ty=type_input.getText();
 
         Connection connection;
         PreparedStatement Insert = null;
@@ -210,7 +214,7 @@ public class AdminViewController {
                 return;
             } else {
 
-                Insert = connection.prepareStatement("INSERT INTO users (FirstName, LastName, Street, HouseNumber, ZIP, Town, Email, Kennwort, InsuranceName) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+                Insert = connection.prepareStatement("INSERT INTO users (FirstName, LastName, Street, HouseNumber, ZIP, Town, Email, BirthDate, Kennwort, InsuranceName, InsuranceType) VALUES (?,?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
                 Insert.setString(1, fn);
                 Insert.setString(2, ln);
                 Insert.setString(3, str);
@@ -218,8 +222,10 @@ public class AdminViewController {
                 Insert.setString(5, zi);
                 Insert.setString(6, to);
                 Insert.setString(7, em);
-                Insert.setString(8, pw);
-                Insert.setString(9, in);
+                Insert.setDate(8, bi);
+                Insert.setString(9, pw);
+                Insert.setString(10, in);
+                Insert.setString(11, ty);
                 Insert.executeUpdate();
 
                 //clears text fields after text entry
@@ -231,8 +237,9 @@ public class AdminViewController {
                 email_input.clear();
                 password_input.clear();
                 town_input.clear();
-                //birthday_input.setValue(null);
+                birthday_input.setValue(null);
                 insurancename_input.clear();
+                type_input.clear();
             }
 
         } catch (SQLException ex) {
@@ -358,6 +365,15 @@ public class AdminViewController {
                     Insert.setInt(2, userid);
                     Insert.executeUpdate();
                 }
+
+                if(birthday_edit.getValue()!=null){
+                    Date bd=Date.valueOf(birthday_edit.getValue());
+                    Insert=connection.prepareStatement("UPDATE users set BirthDate=? WHERE id=?");
+                    Insert.setDate(1, bd);
+                    Insert.setInt(2, userid);
+                    Insert.executeUpdate();
+                }
+
                 //clears text fields after text entry
                 userid_input.clear();
                 firstname_edit.clear();
@@ -368,7 +384,7 @@ public class AdminViewController {
                 email_edit.clear();
                 password_edit.clear();
                 town_edit.clear();
-                //birthday_input.setValue(null);
+                birthday_edit.setValue(null);
                 insurancename_edit.clear();
 
             } catch (SQLException ex) {
