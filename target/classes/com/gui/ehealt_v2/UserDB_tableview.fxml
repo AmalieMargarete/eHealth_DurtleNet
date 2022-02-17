@@ -38,7 +38,7 @@
       <TextField fx:id="email_input" layoutX="379.0" layoutY="455.0" prefHeight="25.0" prefWidth="55.0" promptText="Email" />
       <TextField fx:id="insurancename_input" layoutX="593.0" layoutY="455.0" prefHeight="25.0" prefWidth="90.0" promptText="Insurance Name" />
       <Button fx:id="adduser_button" layoutX="765.0" layoutY="455.0" mnemonicParsing="false" onAction="#addNewUser" prefHeight="25.0" prefWidth="71.0" style="-fx-background-color: #657478;" text="Add User" textFill="WHITE" />
-      <DatePicker layoutX="518.0" layoutY="455.0" prefHeight="16.0" prefWidth="65.0" promptText="Birthday" />
+      <DatePicker fx:id="birthday_input" layoutX="518.0" layoutY="455.0" prefHeight="16.0" prefWidth="65.0" promptText="Birthday" />
       <TextField fx:id="userid_input" layoutX="14.0" layoutY="487.0" prefHeight="25.0" prefWidth="71.0" promptText="Enter UserID" />
       <TextField fx:id="firstname_edit" layoutX="92.0" layoutY="487.0" prefHeight="25.0" prefWidth="71.0" promptText="First Name" />
       <TextField fx:id="lastname_edit" layoutX="170.0" layoutY="487.0" prefHeight="25.0" prefWidth="71.0" promptText="First Name" />
@@ -48,7 +48,7 @@
       <TextField fx:id="town_edit" layoutX="387.0" layoutY="486.0" prefHeight="25.0" prefWidth="48.0" promptText="Town" />
       <TextField fx:id="email_edit" layoutX="442.0" layoutY="486.0" prefHeight="25.0" prefWidth="55.0" promptText="Email" />
       <TextField fx:id="password_edit" layoutX="510.0" layoutY="488.0" prefHeight="25.0" prefWidth="65.0" promptText="Password" />
-      <DatePicker fx:id="birtday_edit" layoutX="582.0" layoutY="489.0" prefHeight="16.0" prefWidth="65.0" promptText="Birthday" />
+      <DatePicker fx:id="birthday_edit" layoutX="582.0" layoutY="489.0" prefHeight="16.0" prefWidth="65.0" promptText="Birthday" />
       <TextField fx:id="insurancename_edit" layoutX="669.0" layoutY="488.0" prefHeight="25.0" prefWidth="90.0" promptText="Insurance Name" />
       <TextField fx:id="street_edit" layoutX="242.0" layoutY="486.0" prefHeight="25.0" prefWidth="62.0" promptText="Street" />
       <AnchorPane layoutY="-6.0" prefHeight="58.0" prefWidth="858.0" style="-fx-background-color: #4b5e62; -fx-background-color: ;">
@@ -76,5 +76,6 @@
             </Label>
          </children>
       </AnchorPane>
+      <TextField fx:id="type_input" layoutX="689.0" layoutY="455.0" prefHeight="25.0" prefWidth="65.0" promptText="Type" />
    </children>
 </AnchorPane>

@@ -32,9 +32,9 @@
             <font>
                 <Font name="Bitstream Vera Sans Mono Bold" size="18.0" />
             </font></Text>
-        <Text fx:id="email_text" layoutX="108.0" layoutY="216.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="217.13671875">
+        <Text fx:id="email_text" layoutX="108.0" layoutY="217.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="387.13671875">
          <font>
-            <Font size="20.0" />
+            <Font size="21.0" />
          </font></Text>
         <Label layoutX="4.0" layoutY="69.0" prefHeight="34.0" prefWidth="86.0" text="Name" textFill="WHITE">
             <font>

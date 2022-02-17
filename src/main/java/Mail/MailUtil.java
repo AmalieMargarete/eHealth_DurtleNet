@@ -25,6 +25,7 @@ import java.util.logging.Logger;
  * @author Viktor Benini, StudentID: 1298976
  * @author Amalie Wilke, 1304925
  */
+// TODO: open new thread to send mail: without stopping the program each time a mail is sent
 public class MailUtil {
     /**
      * Method prepares sending by authentic the email and password, preparing the mail by using

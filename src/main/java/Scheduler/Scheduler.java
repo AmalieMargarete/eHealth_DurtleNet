@@ -40,8 +40,8 @@ public class Scheduler {
             // Trigger the job to run now, and then every 60 seconds
             Trigger trigger = TriggerBuilder.newTrigger()
                     .withIdentity("myTrigger")
-                    .withSchedule(CronScheduleBuilder.cronSchedule("0 0/1 * 1/1 * ? *")/*SimpleScheduleBuilder.simpleSchedule().withIntervalInMinutes(1)
-                            .repeatForever()*/).build();
+                    .withSchedule(CronScheduleBuilder.cronSchedule("0 0/1 * 1/1 * ? *")
+                    ).build();
             // crone: starts at 12 and repeats every minute
 
             org.quartz.Scheduler scheduler = StdSchedulerFactory.getDefaultScheduler();

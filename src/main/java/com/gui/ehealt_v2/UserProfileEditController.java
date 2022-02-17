@@ -89,6 +89,8 @@ public class UserProfileEditController {
                     Insert.setString(1, nfn);
                     Insert.setInt(2, userid);
                     Insert.executeUpdate();
+                    user.setFirstname(nfn);
+                    userHolder.setUser(user);
                 }
 
                 if (!lastname_input.getText().isEmpty()) {
@@ -97,6 +99,8 @@ public class UserProfileEditController {
                     Insert.setString(1, nln);
                     Insert.setInt(2, userid);
                     Insert.executeUpdate();
+                    user.setLastName(nln);
+                    userHolder.setUser(user);
                 }
 
                 if (!street_input.getText().isEmpty()) {
@@ -105,6 +109,8 @@ public class UserProfileEditController {
                     Insert.setString(1, ns);
                     Insert.setInt(2, userid);
                     Insert.executeUpdate();
+                    user.setStreet(ns);
+                    userHolder.setUser(user);
                 }
 
                 if (!number_input.getText().isEmpty()) {
@@ -113,6 +119,8 @@ public class UserProfileEditController {
                     Insert.setString(1, nn);
                     Insert.setInt(2, userid);
                     Insert.executeUpdate();
+                    user.setHousenumber(nn);
+                    userHolder.setUser(user);
                 }
 
                 if (!zip_input.getText().isEmpty()) {
@@ -121,6 +129,8 @@ public class UserProfileEditController {
                     Insert.setString(1, nz);
                     Insert.setInt(2, userid);
                     Insert.executeUpdate();
+                    user.setZip(nz);
+                    userHolder.setUser(user);
                 }
 
                 if (!town_input.getText().isEmpty()) {
@@ -129,6 +139,8 @@ public class UserProfileEditController {
                     Insert.setString(1, nt);
                     Insert.setInt(2, userid);
                     Insert.executeUpdate();
+                    user.setTown(nt);
+                    userHolder.setUser(user);
                 }
 
                 if (!email_input.getText().isEmpty()) {
@@ -178,7 +190,7 @@ public class UserProfileEditController {
                     String np = HashClass.getHash(password_input.getText());    // Hashes password
                     System.out.println(np);
                     Insert = connection.prepareStatement("UPDATE users SET Kennwort=? WHERE id=?");
-                    Insert.setString(1, np);
+                    Insert.setString(1, HashClass.getHash(np));
                     Insert.setInt(2, userid);
                     Insert.executeUpdate();
                 }
